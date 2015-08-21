@@ -1,0 +1,251 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7D6E504F1B781FAE0071372B /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E504D1B781FAE0071372B /* Window.cpp */; };
+		7D6E507F1B78A8A10071372B /* bunny.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E507D1B78A8A10071372B /* bunny.mtl */; };
+		7D6E50801B78A8A10071372B /* bunny.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E507E1B78A8A10071372B /* bunny.obj */; };
+		7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D7AF85E1222C8CC003A0434 /* opengl.icns */; };
+		7DC8037C13A59E4400A47B9B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DC8037B13A59E4400A47B9B /* main.cpp */; };
+		7DE67D151B73541C00E9A4AE /* gg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DE67D141B73541C00E9A4AE /* gg.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		7D1E90EE1123E36C005E6C75 /* irradiancemapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = irradiancemapping.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7D1E90F11123E36C005E6C75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7D6E504D1B781FAE0071372B /* Window.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = Window.cpp; sourceTree = "<group>"; };
+		7D6E504E1B781FAE0071372B /* Window.h */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Window.h; sourceTree = "<group>"; };
+		7D6E507D1B78A8A10071372B /* bunny.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.mtl; sourceTree = "<group>"; };
+		7D6E507E1B78A8A10071372B /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.obj; sourceTree = "<group>"; };
+		7D7AF85E1222C8CC003A0434 /* opengl.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = opengl.icns; sourceTree = "<group>"; };
+		7DA3F5351B7B13DB00F2206A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7DC8037B13A59E4400A47B9B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = main.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		7DE67D131B73541400E9A4AE /* gg.h */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = gg.h; sourceTree = "<group>"; };
+		7DE67D141B73541C00E9A4AE /* gg.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = gg.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7D1E90EC1123E36C005E6C75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7D1E90D81123E2F7005E6C75 = {
+			isa = PBXGroup;
+			children = (
+				7DC8037B13A59E4400A47B9B /* main.cpp */,
+				7D6E504E1B781FAE0071372B /* Window.h */,
+				7D6E504D1B781FAE0071372B /* Window.cpp */,
+				7DE67D131B73541400E9A4AE /* gg.h */,
+				7DE67D141B73541C00E9A4AE /* gg.cpp */,
+				7D1E90EF1123E36C005E6C75 /* Products */,
+				7DA3F5351B7B13DB00F2206A /* README.md */,
+				7D1E90F11123E36C005E6C75 /* Info.plist */,
+				7D7AF85E1222C8CC003A0434 /* opengl.icns */,
+				7D6E507D1B78A8A10071372B /* bunny.mtl */,
+				7D6E507E1B78A8A10071372B /* bunny.obj */,
+			);
+			sourceTree = "<group>";
+		};
+		7D1E90EF1123E36C005E6C75 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7D1E90EE1123E36C005E6C75 /* irradiancemapping.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7D1E90ED1123E36C005E6C75 /* irradiancemapping */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7D1E90F41123E36D005E6C75 /* Build configuration list for PBXNativeTarget "irradiancemapping" */;
+			buildPhases = (
+				7D1E90EA1123E36C005E6C75 /* Resources */,
+				7D1E90EB1123E36C005E6C75 /* Sources */,
+				7D1E90EC1123E36C005E6C75 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = irradiancemapping;
+			productName = irradiancemapping;
+			productReference = 7D1E90EE1123E36C005E6C75 /* irradiancemapping.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7D1E90DA1123E2F7005E6C75 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+			};
+			buildConfigurationList = 7D1E90DD1123E2F7005E6C75 /* Build configuration list for PBXProject "irradiancemapping" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 7D1E90D81123E2F7005E6C75;
+			productRefGroup = 7D1E90EF1123E36C005E6C75 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7D1E90ED1123E36C005E6C75 /* irradiancemapping */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7D1E90EA1123E36C005E6C75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */,
+				7D6E507F1B78A8A10071372B /* bunny.mtl in Resources */,
+				7D6E50801B78A8A10071372B /* bunny.obj in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7D1E90EB1123E36C005E6C75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DC8037C13A59E4400A47B9B /* main.cpp in Sources */,
+				7D6E504F1B781FAE0071372B /* Window.cpp in Sources */,
+				7DE67D151B73541C00E9A4AE /* gg.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		7D1E90DB1123E2F7005E6C75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		7D1E90DC1123E2F7005E6C75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				MACOSX_DEPLOYMENT_TARGET = "";
+			};
+			name = Release;
+		};
+		7D1E90F21123E36D005E6C75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					libglfw3_macos.a,
+					"-framework",
+					OpenGL,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					IOKit,
+					"-framework",
+					Cocoa,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = irradiancemapping;
+			};
+			name = Debug;
+		};
+		7D1E90F31123E36D005E6C75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_WARN_CXX0X_EXTENSIONS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				OTHER_LDFLAGS = (
+					libglfw3_macos.a,
+					"-framework",
+					OpenGL,
+					"-framework",
+					CoreVideo,
+					"-framework",
+					IOKit,
+					"-framework",
+					Cocoa,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = irradiancemapping;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7D1E90DD1123E2F7005E6C75 /* Build configuration list for PBXProject "irradiancemapping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D1E90DB1123E2F7005E6C75 /* Debug */,
+				7D1E90DC1123E2F7005E6C75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7D1E90F41123E36D005E6C75 /* Build configuration list for PBXNativeTarget "irradiancemapping" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7D1E90F21123E36D005E6C75 /* Debug */,
+				7D1E90F31123E36D005E6C75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7D1E90DA1123E2F7005E6C75 /* Project object */;
+}
