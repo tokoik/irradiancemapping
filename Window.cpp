@@ -24,6 +24,7 @@ const GLfloat distanceStep(0.1f);
 //
 Window::Window(const char *title, int width, int height)
   : window(glfwCreateWindow(width, height, title, NULL, NULL))
+  , selection(0), blightness(0)
 {
   if (window == NULL)
   {
@@ -119,12 +120,16 @@ void Window::keyboard(GLFWwindow *window, int key, int scancode, int action, int
         case GLFW_KEY_DELETE:
           break;
         case GLFW_KEY_UP:
+          if (instance->blightness < 10) instance->blightness++;
           break;
         case GLFW_KEY_DOWN:
+          if (instance->blightness > 0) instance->blightness--;
           break;
         case GLFW_KEY_RIGHT:
+          instance->selection++;
           break;
         case GLFW_KEY_LEFT:
+          if (instance->selection > 0) instance->selection--;
           break;
         default:
           break;

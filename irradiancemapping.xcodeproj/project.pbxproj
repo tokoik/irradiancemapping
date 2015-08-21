@@ -10,6 +10,52 @@
 		7D6E504F1B781FAE0071372B /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E504D1B781FAE0071372B /* Window.cpp */; };
 		7D6E507F1B78A8A10071372B /* bunny.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E507D1B78A8A10071372B /* bunny.mtl */; };
 		7D6E50801B78A8A10071372B /* bunny.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E507E1B78A8A10071372B /* bunny.obj */; };
+		7D7619AA1B870339006123B7 /* skymap0.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A01B870339006123B7 /* skymap0.tga */; };
+		7D7619AB1B870339006123B7 /* skymap1.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A11B870339006123B7 /* skymap1.tga */; };
+		7D7619AC1B870339006123B7 /* skymap2.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A21B870339006123B7 /* skymap2.tga */; };
+		7D7619AD1B870339006123B7 /* skymap3.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A31B870339006123B7 /* skymap3.tga */; };
+		7D7619AE1B870339006123B7 /* skymap4.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A41B870339006123B7 /* skymap4.tga */; };
+		7D7619AF1B870339006123B7 /* skymap5.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A51B870339006123B7 /* skymap5.tga */; };
+		7D7619B01B870339006123B7 /* skymap6.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A61B870339006123B7 /* skymap6.tga */; };
+		7D7619B11B870339006123B7 /* skymap7.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A71B870339006123B7 /* skymap7.tga */; };
+		7D7619B21B870339006123B7 /* skymap8.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A81B870339006123B7 /* skymap8.tga */; };
+		7D7619B31B870339006123B7 /* skymap9.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A91B870339006123B7 /* skymap9.tga */; };
+		7D7619C61B870355006123B7 /* irrmap0.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B41B870355006123B7 /* irrmap0.tga */; };
+		7D7619C71B870355006123B7 /* irrmap1.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B51B870355006123B7 /* irrmap1.tga */; };
+		7D7619C81B870355006123B7 /* irrmap2.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B61B870355006123B7 /* irrmap2.tga */; };
+		7D7619C91B870355006123B7 /* irrmap3.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B71B870355006123B7 /* irrmap3.tga */; };
+		7D7619CA1B870355006123B7 /* irrmap4.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B81B870355006123B7 /* irrmap4.tga */; };
+		7D7619CB1B870355006123B7 /* irrmap5.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B91B870355006123B7 /* irrmap5.tga */; };
+		7D7619CC1B870355006123B7 /* irrmap6.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619BA1B870355006123B7 /* irrmap6.tga */; };
+		7D7619CD1B870355006123B7 /* irrmap7.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619BB1B870355006123B7 /* irrmap7.tga */; };
+		7D7619CE1B870355006123B7 /* irrmap8.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619BC1B870355006123B7 /* irrmap8.tga */; };
+		7D7619CF1B870355006123B7 /* irrmap9.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619BD1B870355006123B7 /* irrmap9.tga */; };
+		7D7619D01B870355006123B7 /* irrmapa.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619BE1B870355006123B7 /* irrmapa.tga */; };
+		7D7619D11B870355006123B7 /* irrmapb.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619BF1B870355006123B7 /* irrmapb.tga */; };
+		7D7619D21B870355006123B7 /* irrmapc.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619C01B870355006123B7 /* irrmapc.tga */; };
+		7D7619D31B870355006123B7 /* irrmapd.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619C11B870355006123B7 /* irrmapd.tga */; };
+		7D7619D41B870355006123B7 /* irrmape.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619C21B870355006123B7 /* irrmape.tga */; };
+		7D7619D51B870355006123B7 /* irrmapf.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619C31B870355006123B7 /* irrmapf.tga */; };
+		7D7619D61B870355006123B7 /* irrmapg.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619C41B870355006123B7 /* irrmapg.tga */; };
+		7D7619D71B870355006123B7 /* irrmaph.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619C51B870355006123B7 /* irrmaph.tga */; };
+		7D7619EA1B870368006123B7 /* envmap0.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619D81B870368006123B7 /* envmap0.tga */; };
+		7D7619EB1B870368006123B7 /* envmap1.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619D91B870368006123B7 /* envmap1.tga */; };
+		7D7619EC1B870368006123B7 /* envmap2.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619DA1B870368006123B7 /* envmap2.tga */; };
+		7D7619ED1B870368006123B7 /* envmap3.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619DB1B870368006123B7 /* envmap3.tga */; };
+		7D7619EE1B870368006123B7 /* envmap4.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619DC1B870368006123B7 /* envmap4.tga */; };
+		7D7619EF1B870368006123B7 /* envmap5.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619DD1B870368006123B7 /* envmap5.tga */; };
+		7D7619F01B870368006123B7 /* envmap6.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619DE1B870368006123B7 /* envmap6.tga */; };
+		7D7619F11B870368006123B7 /* envmap7.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619DF1B870368006123B7 /* envmap7.tga */; };
+		7D7619F21B870368006123B7 /* envmap8.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E01B870368006123B7 /* envmap8.tga */; };
+		7D7619F31B870368006123B7 /* envmap9.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E11B870368006123B7 /* envmap9.tga */; };
+		7D7619F41B870368006123B7 /* envmapa.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E21B870368006123B7 /* envmapa.tga */; };
+		7D7619F51B870368006123B7 /* envmapb.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E31B870368006123B7 /* envmapb.tga */; };
+		7D7619F61B870368006123B7 /* envmapc.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E41B870368006123B7 /* envmapc.tga */; };
+		7D7619F71B870368006123B7 /* envmapd.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E51B870368006123B7 /* envmapd.tga */; };
+		7D7619F81B870368006123B7 /* envmape.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E61B870368006123B7 /* envmape.tga */; };
+		7D7619F91B870368006123B7 /* envmapf.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E71B870368006123B7 /* envmapf.tga */; };
+		7D7619FA1B870368006123B7 /* envmapg.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E81B870368006123B7 /* envmapg.tga */; };
+		7D7619FB1B870368006123B7 /* envmaph.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619E91B870368006123B7 /* envmaph.tga */; };
 		7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */ = {isa = PBXBuildFile; fileRef = 7D7AF85E1222C8CC003A0434 /* opengl.icns */; };
 		7DC8037C13A59E4400A47B9B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DC8037B13A59E4400A47B9B /* main.cpp */; };
 		7DE67D151B73541C00E9A4AE /* gg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7DE67D141B73541C00E9A4AE /* gg.cpp */; };
@@ -22,6 +68,52 @@
 		7D6E504E1B781FAE0071372B /* Window.h */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Window.h; sourceTree = "<group>"; };
 		7D6E507D1B78A8A10071372B /* bunny.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.mtl; sourceTree = "<group>"; };
 		7D6E507E1B78A8A10071372B /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.obj; sourceTree = "<group>"; };
+		7D7619A01B870339006123B7 /* skymap0.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap0.tga; sourceTree = "<group>"; };
+		7D7619A11B870339006123B7 /* skymap1.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap1.tga; sourceTree = "<group>"; };
+		7D7619A21B870339006123B7 /* skymap2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap2.tga; sourceTree = "<group>"; };
+		7D7619A31B870339006123B7 /* skymap3.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap3.tga; sourceTree = "<group>"; };
+		7D7619A41B870339006123B7 /* skymap4.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap4.tga; sourceTree = "<group>"; };
+		7D7619A51B870339006123B7 /* skymap5.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap5.tga; sourceTree = "<group>"; };
+		7D7619A61B870339006123B7 /* skymap6.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap6.tga; sourceTree = "<group>"; };
+		7D7619A71B870339006123B7 /* skymap7.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap7.tga; sourceTree = "<group>"; };
+		7D7619A81B870339006123B7 /* skymap8.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap8.tga; sourceTree = "<group>"; };
+		7D7619A91B870339006123B7 /* skymap9.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap9.tga; sourceTree = "<group>"; };
+		7D7619B41B870355006123B7 /* irrmap0.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap0.tga; sourceTree = "<group>"; };
+		7D7619B51B870355006123B7 /* irrmap1.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap1.tga; sourceTree = "<group>"; };
+		7D7619B61B870355006123B7 /* irrmap2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap2.tga; sourceTree = "<group>"; };
+		7D7619B71B870355006123B7 /* irrmap3.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap3.tga; sourceTree = "<group>"; };
+		7D7619B81B870355006123B7 /* irrmap4.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap4.tga; sourceTree = "<group>"; };
+		7D7619B91B870355006123B7 /* irrmap5.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap5.tga; sourceTree = "<group>"; };
+		7D7619BA1B870355006123B7 /* irrmap6.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap6.tga; sourceTree = "<group>"; };
+		7D7619BB1B870355006123B7 /* irrmap7.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap7.tga; sourceTree = "<group>"; };
+		7D7619BC1B870355006123B7 /* irrmap8.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap8.tga; sourceTree = "<group>"; };
+		7D7619BD1B870355006123B7 /* irrmap9.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap9.tga; sourceTree = "<group>"; };
+		7D7619BE1B870355006123B7 /* irrmapa.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmapa.tga; sourceTree = "<group>"; };
+		7D7619BF1B870355006123B7 /* irrmapb.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmapb.tga; sourceTree = "<group>"; };
+		7D7619C01B870355006123B7 /* irrmapc.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmapc.tga; sourceTree = "<group>"; };
+		7D7619C11B870355006123B7 /* irrmapd.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmapd.tga; sourceTree = "<group>"; };
+		7D7619C21B870355006123B7 /* irrmape.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmape.tga; sourceTree = "<group>"; };
+		7D7619C31B870355006123B7 /* irrmapf.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmapf.tga; sourceTree = "<group>"; };
+		7D7619C41B870355006123B7 /* irrmapg.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmapg.tga; sourceTree = "<group>"; };
+		7D7619C51B870355006123B7 /* irrmaph.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmaph.tga; sourceTree = "<group>"; };
+		7D7619D81B870368006123B7 /* envmap0.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap0.tga; sourceTree = "<group>"; };
+		7D7619D91B870368006123B7 /* envmap1.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap1.tga; sourceTree = "<group>"; };
+		7D7619DA1B870368006123B7 /* envmap2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap2.tga; sourceTree = "<group>"; };
+		7D7619DB1B870368006123B7 /* envmap3.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap3.tga; sourceTree = "<group>"; };
+		7D7619DC1B870368006123B7 /* envmap4.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap4.tga; sourceTree = "<group>"; };
+		7D7619DD1B870368006123B7 /* envmap5.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap5.tga; sourceTree = "<group>"; };
+		7D7619DE1B870368006123B7 /* envmap6.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap6.tga; sourceTree = "<group>"; };
+		7D7619DF1B870368006123B7 /* envmap7.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap7.tga; sourceTree = "<group>"; };
+		7D7619E01B870368006123B7 /* envmap8.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap8.tga; sourceTree = "<group>"; };
+		7D7619E11B870368006123B7 /* envmap9.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmap9.tga; sourceTree = "<group>"; };
+		7D7619E21B870368006123B7 /* envmapa.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmapa.tga; sourceTree = "<group>"; };
+		7D7619E31B870368006123B7 /* envmapb.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmapb.tga; sourceTree = "<group>"; };
+		7D7619E41B870368006123B7 /* envmapc.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmapc.tga; sourceTree = "<group>"; };
+		7D7619E51B870368006123B7 /* envmapd.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmapd.tga; sourceTree = "<group>"; };
+		7D7619E61B870368006123B7 /* envmape.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmape.tga; sourceTree = "<group>"; };
+		7D7619E71B870368006123B7 /* envmapf.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmapf.tga; sourceTree = "<group>"; };
+		7D7619E81B870368006123B7 /* envmapg.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmapg.tga; sourceTree = "<group>"; };
+		7D7619E91B870368006123B7 /* envmaph.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = envmaph.tga; sourceTree = "<group>"; };
 		7D7AF85E1222C8CC003A0434 /* opengl.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = opengl.icns; sourceTree = "<group>"; };
 		7DA3F5351B7B13DB00F2206A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7DC8037B13A59E4400A47B9B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = main.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -54,6 +146,52 @@
 				7D7AF85E1222C8CC003A0434 /* opengl.icns */,
 				7D6E507D1B78A8A10071372B /* bunny.mtl */,
 				7D6E507E1B78A8A10071372B /* bunny.obj */,
+				7D7619A01B870339006123B7 /* skymap0.tga */,
+				7D7619A11B870339006123B7 /* skymap1.tga */,
+				7D7619A21B870339006123B7 /* skymap2.tga */,
+				7D7619A31B870339006123B7 /* skymap3.tga */,
+				7D7619A41B870339006123B7 /* skymap4.tga */,
+				7D7619A51B870339006123B7 /* skymap5.tga */,
+				7D7619A61B870339006123B7 /* skymap6.tga */,
+				7D7619A71B870339006123B7 /* skymap7.tga */,
+				7D7619A81B870339006123B7 /* skymap8.tga */,
+				7D7619A91B870339006123B7 /* skymap9.tga */,
+				7D7619B41B870355006123B7 /* irrmap0.tga */,
+				7D7619B51B870355006123B7 /* irrmap1.tga */,
+				7D7619B61B870355006123B7 /* irrmap2.tga */,
+				7D7619B71B870355006123B7 /* irrmap3.tga */,
+				7D7619B81B870355006123B7 /* irrmap4.tga */,
+				7D7619B91B870355006123B7 /* irrmap5.tga */,
+				7D7619BA1B870355006123B7 /* irrmap6.tga */,
+				7D7619BB1B870355006123B7 /* irrmap7.tga */,
+				7D7619BC1B870355006123B7 /* irrmap8.tga */,
+				7D7619BD1B870355006123B7 /* irrmap9.tga */,
+				7D7619BE1B870355006123B7 /* irrmapa.tga */,
+				7D7619BF1B870355006123B7 /* irrmapb.tga */,
+				7D7619C01B870355006123B7 /* irrmapc.tga */,
+				7D7619C11B870355006123B7 /* irrmapd.tga */,
+				7D7619C21B870355006123B7 /* irrmape.tga */,
+				7D7619C31B870355006123B7 /* irrmapf.tga */,
+				7D7619C41B870355006123B7 /* irrmapg.tga */,
+				7D7619C51B870355006123B7 /* irrmaph.tga */,
+				7D7619D81B870368006123B7 /* envmap0.tga */,
+				7D7619D91B870368006123B7 /* envmap1.tga */,
+				7D7619DA1B870368006123B7 /* envmap2.tga */,
+				7D7619DB1B870368006123B7 /* envmap3.tga */,
+				7D7619DC1B870368006123B7 /* envmap4.tga */,
+				7D7619DD1B870368006123B7 /* envmap5.tga */,
+				7D7619DE1B870368006123B7 /* envmap6.tga */,
+				7D7619DF1B870368006123B7 /* envmap7.tga */,
+				7D7619E01B870368006123B7 /* envmap8.tga */,
+				7D7619E11B870368006123B7 /* envmap9.tga */,
+				7D7619E21B870368006123B7 /* envmapa.tga */,
+				7D7619E31B870368006123B7 /* envmapb.tga */,
+				7D7619E41B870368006123B7 /* envmapc.tga */,
+				7D7619E51B870368006123B7 /* envmapd.tga */,
+				7D7619E61B870368006123B7 /* envmape.tga */,
+				7D7619E71B870368006123B7 /* envmapf.tga */,
+				7D7619E81B870368006123B7 /* envmapg.tga */,
+				7D7619E91B870368006123B7 /* envmaph.tga */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,6 +259,52 @@
 				7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */,
 				7D6E507F1B78A8A10071372B /* bunny.mtl in Resources */,
 				7D6E50801B78A8A10071372B /* bunny.obj in Resources */,
+				7D7619AA1B870339006123B7 /* skymap0.tga in Resources */,
+				7D7619AB1B870339006123B7 /* skymap1.tga in Resources */,
+				7D7619AC1B870339006123B7 /* skymap2.tga in Resources */,
+				7D7619AD1B870339006123B7 /* skymap3.tga in Resources */,
+				7D7619AE1B870339006123B7 /* skymap4.tga in Resources */,
+				7D7619AF1B870339006123B7 /* skymap5.tga in Resources */,
+				7D7619B01B870339006123B7 /* skymap6.tga in Resources */,
+				7D7619B11B870339006123B7 /* skymap7.tga in Resources */,
+				7D7619B21B870339006123B7 /* skymap8.tga in Resources */,
+				7D7619B31B870339006123B7 /* skymap9.tga in Resources */,
+				7D7619C61B870355006123B7 /* irrmap0.tga in Resources */,
+				7D7619C71B870355006123B7 /* irrmap1.tga in Resources */,
+				7D7619C81B870355006123B7 /* irrmap2.tga in Resources */,
+				7D7619C91B870355006123B7 /* irrmap3.tga in Resources */,
+				7D7619CA1B870355006123B7 /* irrmap4.tga in Resources */,
+				7D7619CB1B870355006123B7 /* irrmap5.tga in Resources */,
+				7D7619CC1B870355006123B7 /* irrmap6.tga in Resources */,
+				7D7619CD1B870355006123B7 /* irrmap7.tga in Resources */,
+				7D7619CE1B870355006123B7 /* irrmap8.tga in Resources */,
+				7D7619CF1B870355006123B7 /* irrmap9.tga in Resources */,
+				7D7619D01B870355006123B7 /* irrmapa.tga in Resources */,
+				7D7619D11B870355006123B7 /* irrmapb.tga in Resources */,
+				7D7619D21B870355006123B7 /* irrmapc.tga in Resources */,
+				7D7619D31B870355006123B7 /* irrmapd.tga in Resources */,
+				7D7619D41B870355006123B7 /* irrmape.tga in Resources */,
+				7D7619D51B870355006123B7 /* irrmapf.tga in Resources */,
+				7D7619D61B870355006123B7 /* irrmapg.tga in Resources */,
+				7D7619D71B870355006123B7 /* irrmaph.tga in Resources */,
+				7D7619EA1B870368006123B7 /* envmap0.tga in Resources */,
+				7D7619EB1B870368006123B7 /* envmap1.tga in Resources */,
+				7D7619EC1B870368006123B7 /* envmap2.tga in Resources */,
+				7D7619ED1B870368006123B7 /* envmap3.tga in Resources */,
+				7D7619EE1B870368006123B7 /* envmap4.tga in Resources */,
+				7D7619EF1B870368006123B7 /* envmap5.tga in Resources */,
+				7D7619F01B870368006123B7 /* envmap6.tga in Resources */,
+				7D7619F11B870368006123B7 /* envmap7.tga in Resources */,
+				7D7619F21B870368006123B7 /* envmap8.tga in Resources */,
+				7D7619F31B870368006123B7 /* envmap9.tga in Resources */,
+				7D7619F41B870368006123B7 /* envmapa.tga in Resources */,
+				7D7619F51B870368006123B7 /* envmapb.tga in Resources */,
+				7D7619F61B870368006123B7 /* envmapc.tga in Resources */,
+				7D7619F71B870368006123B7 /* envmapd.tga in Resources */,
+				7D7619F81B870368006123B7 /* envmape.tga in Resources */,
+				7D7619F91B870368006123B7 /* envmapf.tga in Resources */,
+				7D7619FA1B870368006123B7 /* envmapg.tga in Resources */,
+				7D7619FB1B870368006123B7 /* envmaph.tga in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

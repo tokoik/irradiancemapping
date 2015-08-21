@@ -28,6 +28,12 @@ class Window
   // 回転中心に対するカメラの位置
   GLfloat position[3];
 
+  // 明るさ
+  int blightness;
+
+  // 選択したテクスチャ番号
+  int selection;
+
 public:
 
   // コンストラクタ
@@ -79,5 +85,18 @@ public:
   const GLfloat *getPosition() const
   {
     return position;
+  }
+
+  // 明るさを取り出す
+  void getBrightness(GLfloat *brightness)
+  {
+    brightness[0] = brightness[1] = brightness[2] = this->blightness * 0.1f;
+    brightness[3] = 1.0f;
+  }
+
+  // 選択したテクスチャ番号を取り出す
+  int getSelection() const
+  {
+    return selection;
   }
 };
