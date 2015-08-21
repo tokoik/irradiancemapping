@@ -24,7 +24,7 @@ const GLfloat distanceStep(0.1f);
 //
 Window::Window(const char *title, int width, int height)
   : window(glfwCreateWindow(width, height, title, NULL, NULL))
-  , selection(0), blightness(0)
+  , blightness(0), selection(0)
 {
   if (window == NULL)
   {
