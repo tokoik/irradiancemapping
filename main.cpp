@@ -389,12 +389,10 @@ namespace
     // チャンネル数
     const int channels(format == GL_BGRA ? 4 : 3);
 
-    // src に対する dst の拡大率
-    const float scale(float(area) / float(size));
-
-    // dst に対する src の中心のオフセット
-    const float ox(float(width - area) * 0.5f);
-    const float oy(float(height - area) * 0.5f);
+    // src の半径と中心
+    const float srcR(float(area) * 0.5f);
+    const float srcX(float(width) * 0.5f);
+    const float srcY(float(height) * 0.5f);
 
     // 大域環境光強度
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
@@ -447,12 +445,27 @@ namespace
 
         for (int i = 0; i < samples; ++i)
         {
-          const GLfloat r(acos(rsampler[i][1]) * 2.0f / M_PI);
-          const GLfloat l(sqrt(rsampler[i][0] * rsampler[i][0] + rsampler[i][2] * rsampler[i][2]) * scale);
-          const int sx(int(round(rsampler[i][0] / l + ox)));
-          const int sy(int(round(rsampler[i][2] / l + oy)));
+          // サンプラーの xz 平面上の長さ
+          const GLfloat l(rsampler[i][0] * rsampler[i][0] + rsampler[i][2] * rsampler[i][2]);
+          if (l == 0.0f)
+          {
+            // サンプラーは真上に向いている
+            const int is((width * (height + 1) / 2) * channels);
+            rsum += float(src[is + 2]);
+            gsum += float(src[is + 1]);
+            bsum += float(src[is + 0]);
+            continue;
+          }
+
+          const GLfloat r(srcR * acos(rsampler[i][1]) * 2.0f / M_PI);
+          const GLfloat s(r / sqrt(l));
+          const GLfloat tx(rsampler[i][0] * s);
+          const GLfloat ty(rsampler[i][2] * s);
+          const int sx(int(round(tx + srcX)));
+          const int sy(int(round(ty + srcX)));
           
-          if (sx < 0 || sx >= width || sy < 0 || sy >= height)
+          // サンプラーが天空画像外
+          if (0 && tx * tx + ty * ty >= srcR)
           {
             // 大域環境光を加算する
             rsum += ramb;
