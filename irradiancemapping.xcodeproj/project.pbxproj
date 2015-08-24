@@ -10,16 +10,15 @@
 		7D6E504F1B781FAE0071372B /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7D6E504D1B781FAE0071372B /* Window.cpp */; };
 		7D6E507F1B78A8A10071372B /* bunny.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E507D1B78A8A10071372B /* bunny.mtl */; };
 		7D6E50801B78A8A10071372B /* bunny.obj in Resources */ = {isa = PBXBuildFile; fileRef = 7D6E507E1B78A8A10071372B /* bunny.obj */; };
-		7D7619AA1B870339006123B7 /* skymap0.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A01B870339006123B7 /* skymap0.tga */; };
-		7D7619AB1B870339006123B7 /* skymap1.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A11B870339006123B7 /* skymap1.tga */; };
-		7D7619AC1B870339006123B7 /* skymap2.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A21B870339006123B7 /* skymap2.tga */; };
-		7D7619AD1B870339006123B7 /* skymap3.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A31B870339006123B7 /* skymap3.tga */; };
-		7D7619AE1B870339006123B7 /* skymap4.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A41B870339006123B7 /* skymap4.tga */; };
-		7D7619AF1B870339006123B7 /* skymap5.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A51B870339006123B7 /* skymap5.tga */; };
+		7D7619AA1B870339006123B7 /* skymap4.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A01B870339006123B7 /* skymap4.tga */; };
+		7D7619AC1B870339006123B7 /* skymap3.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A21B870339006123B7 /* skymap3.tga */; };
+		7D7619AD1B870339006123B7 /* skymap5.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A31B870339006123B7 /* skymap5.tga */; };
+		7D7619AE1B870339006123B7 /* skymap0.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A41B870339006123B7 /* skymap0.tga */; };
+		7D7619AF1B870339006123B7 /* skymap8.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A51B870339006123B7 /* skymap8.tga */; };
 		7D7619B01B870339006123B7 /* skymap6.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A61B870339006123B7 /* skymap6.tga */; };
-		7D7619B11B870339006123B7 /* skymap7.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A71B870339006123B7 /* skymap7.tga */; };
-		7D7619B21B870339006123B7 /* skymap8.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A81B870339006123B7 /* skymap8.tga */; };
-		7D7619B31B870339006123B7 /* skymap9.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A91B870339006123B7 /* skymap9.tga */; };
+		7D7619B11B870339006123B7 /* skymap9.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A71B870339006123B7 /* skymap9.tga */; };
+		7D7619B21B870339006123B7 /* skymap1.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A81B870339006123B7 /* skymap1.tga */; };
+		7D7619B31B870339006123B7 /* skymap2.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619A91B870339006123B7 /* skymap2.tga */; };
 		7D7619C61B870355006123B7 /* irrmap0.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B41B870355006123B7 /* irrmap0.tga */; };
 		7D7619C71B870355006123B7 /* irrmap1.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B51B870355006123B7 /* irrmap1.tga */; };
 		7D7619C81B870355006123B7 /* irrmap2.tga in Resources */ = {isa = PBXBuildFile; fileRef = 7D7619B61B870355006123B7 /* irrmap2.tga */; };
@@ -68,16 +67,15 @@
 		7D6E504E1B781FAE0071372B /* Window.h */ = {isa = PBXFileReference; fileEncoding = 8; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Window.h; sourceTree = "<group>"; };
 		7D6E507D1B78A8A10071372B /* bunny.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.mtl; sourceTree = "<group>"; };
 		7D6E507E1B78A8A10071372B /* bunny.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = bunny.obj; sourceTree = "<group>"; };
-		7D7619A01B870339006123B7 /* skymap0.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap0.tga; sourceTree = "<group>"; };
-		7D7619A11B870339006123B7 /* skymap1.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap1.tga; sourceTree = "<group>"; };
-		7D7619A21B870339006123B7 /* skymap2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap2.tga; sourceTree = "<group>"; };
-		7D7619A31B870339006123B7 /* skymap3.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap3.tga; sourceTree = "<group>"; };
-		7D7619A41B870339006123B7 /* skymap4.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap4.tga; sourceTree = "<group>"; };
-		7D7619A51B870339006123B7 /* skymap5.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap5.tga; sourceTree = "<group>"; };
+		7D7619A01B870339006123B7 /* skymap4.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap4.tga; sourceTree = "<group>"; };
+		7D7619A21B870339006123B7 /* skymap3.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap3.tga; sourceTree = "<group>"; };
+		7D7619A31B870339006123B7 /* skymap5.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap5.tga; sourceTree = "<group>"; };
+		7D7619A41B870339006123B7 /* skymap0.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap0.tga; sourceTree = "<group>"; };
+		7D7619A51B870339006123B7 /* skymap8.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap8.tga; sourceTree = "<group>"; };
 		7D7619A61B870339006123B7 /* skymap6.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap6.tga; sourceTree = "<group>"; };
-		7D7619A71B870339006123B7 /* skymap7.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap7.tga; sourceTree = "<group>"; };
-		7D7619A81B870339006123B7 /* skymap8.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap8.tga; sourceTree = "<group>"; };
-		7D7619A91B870339006123B7 /* skymap9.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap9.tga; sourceTree = "<group>"; };
+		7D7619A71B870339006123B7 /* skymap9.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap9.tga; sourceTree = "<group>"; };
+		7D7619A81B870339006123B7 /* skymap1.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap1.tga; sourceTree = "<group>"; };
+		7D7619A91B870339006123B7 /* skymap2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = skymap2.tga; sourceTree = "<group>"; };
 		7D7619B41B870355006123B7 /* irrmap0.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap0.tga; sourceTree = "<group>"; };
 		7D7619B51B870355006123B7 /* irrmap1.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap1.tga; sourceTree = "<group>"; };
 		7D7619B61B870355006123B7 /* irrmap2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = irrmap2.tga; sourceTree = "<group>"; };
@@ -146,16 +144,15 @@
 				7D7AF85E1222C8CC003A0434 /* opengl.icns */,
 				7D6E507D1B78A8A10071372B /* bunny.mtl */,
 				7D6E507E1B78A8A10071372B /* bunny.obj */,
-				7D7619A01B870339006123B7 /* skymap0.tga */,
-				7D7619A11B870339006123B7 /* skymap1.tga */,
-				7D7619A21B870339006123B7 /* skymap2.tga */,
-				7D7619A31B870339006123B7 /* skymap3.tga */,
-				7D7619A41B870339006123B7 /* skymap4.tga */,
-				7D7619A51B870339006123B7 /* skymap5.tga */,
+				7D7619A41B870339006123B7 /* skymap0.tga */,
+				7D7619A81B870339006123B7 /* skymap1.tga */,
+				7D7619A91B870339006123B7 /* skymap2.tga */,
+				7D7619A21B870339006123B7 /* skymap3.tga */,
+				7D7619A01B870339006123B7 /* skymap4.tga */,
+				7D7619A31B870339006123B7 /* skymap5.tga */,
 				7D7619A61B870339006123B7 /* skymap6.tga */,
-				7D7619A71B870339006123B7 /* skymap7.tga */,
-				7D7619A81B870339006123B7 /* skymap8.tga */,
-				7D7619A91B870339006123B7 /* skymap9.tga */,
+				7D7619A51B870339006123B7 /* skymap8.tga */,
+				7D7619A71B870339006123B7 /* skymap9.tga */,
 				7D7619B41B870355006123B7 /* irrmap0.tga */,
 				7D7619B51B870355006123B7 /* irrmap1.tga */,
 				7D7619B61B870355006123B7 /* irrmap2.tga */,
@@ -259,16 +256,15 @@
 				7D7AF85F1222C8CC003A0434 /* opengl.icns in Resources */,
 				7D6E507F1B78A8A10071372B /* bunny.mtl in Resources */,
 				7D6E50801B78A8A10071372B /* bunny.obj in Resources */,
-				7D7619AA1B870339006123B7 /* skymap0.tga in Resources */,
-				7D7619AB1B870339006123B7 /* skymap1.tga in Resources */,
-				7D7619AC1B870339006123B7 /* skymap2.tga in Resources */,
-				7D7619AD1B870339006123B7 /* skymap3.tga in Resources */,
-				7D7619AE1B870339006123B7 /* skymap4.tga in Resources */,
-				7D7619AF1B870339006123B7 /* skymap5.tga in Resources */,
+				7D7619AA1B870339006123B7 /* skymap4.tga in Resources */,
+				7D7619AC1B870339006123B7 /* skymap3.tga in Resources */,
+				7D7619AD1B870339006123B7 /* skymap5.tga in Resources */,
+				7D7619AE1B870339006123B7 /* skymap0.tga in Resources */,
+				7D7619AF1B870339006123B7 /* skymap8.tga in Resources */,
 				7D7619B01B870339006123B7 /* skymap6.tga in Resources */,
-				7D7619B11B870339006123B7 /* skymap7.tga in Resources */,
-				7D7619B21B870339006123B7 /* skymap8.tga in Resources */,
-				7D7619B31B870339006123B7 /* skymap9.tga in Resources */,
+				7D7619B11B870339006123B7 /* skymap9.tga in Resources */,
+				7D7619B21B870339006123B7 /* skymap1.tga in Resources */,
+				7D7619B31B870339006123B7 /* skymap2.tga in Resources */,
 				7D7619C61B870355006123B7 /* irrmap0.tga in Resources */,
 				7D7619C71B870355006123B7 /* irrmap1.tga in Resources */,
 				7D7619C81B870355006123B7 /* irrmap2.tga in Resources */,
