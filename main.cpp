@@ -458,7 +458,7 @@ namespace
 
     // 作成したテクスチャを保存する
     std::stringstream imapname;
-    imapname << "irrmap" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
+    imapname << "irr" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
     ggSaveTga(size, size, 3, &temp[0], imapname.str().c_str());
 
     // 環境マップ用に平滑する
@@ -469,7 +469,7 @@ namespace
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
-    emapname << "envmap" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
+    emapname << "env" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
     ggSaveTga(size, size, 3, &temp[0], emapname.str().c_str());
 
     // 読み込んだデータはもう使わないのでメモリを解放する
