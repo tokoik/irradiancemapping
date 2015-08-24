@@ -92,10 +92,8 @@ namespace
     "skymap6.tga",
     "skymap7.tga",
     "skymap8.tga",
-    "skymap9.tga",
-#else
-    "skymap0.tga"
 #endif
+    "skymap9.tga"
   };
 
   //
