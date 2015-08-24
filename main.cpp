@@ -9,7 +9,7 @@
 #include <algorithm>
 
 // 事前計算したマップを使用するなら 1
-#define USEMAP 0
+#define USEMAP 1
 
 // ウィンドウ関連の処理
 #include "Window.h"
@@ -480,8 +480,6 @@ namespace
           // この画素の画像上の画素位置
           const int si(int(round(srcR * sx + srcX)));
           const int sj(int(round(srcR * sz + srcY)));
-          //const int si(int(round((float(area) * sx + float(width)) * 0.5f)));
-          //const int sj(int(round((float(area) * sz + float(height)) * 0.5f)));
 
           // この画素の src のインデックス
           const int is((sj * width + si) * channels);
