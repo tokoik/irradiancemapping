@@ -123,7 +123,7 @@ namespace
   //
   const GLsizei imapsize(64);
   const GLsizei emapsize(256);
-  
+
   //
   // フィルタのサンプル数
   //
@@ -136,8 +136,8 @@ namespace
   //
   const GLfloat paraboloid[] =
   {
-    -1.0f,  0.0f,  0.0f,  0.0f,
-     1.0f,  1.0f,  0.0f,  2.0f,
+    -0.5f,  0.0f,  0.0f,  0.0f,
+     1.0f,  0.5f,  0.0f,  2.0f,
      0.0f, -1.0f,  0.0f,  0.0f,
      1.0f,  1.0f,  0.0f,  2.0f,
   };
@@ -304,12 +304,12 @@ namespace
     static unsigned int z(521288629);
     static unsigned int w(88675123);
     const unsigned int t(x ^ x << 11);
-    
+
     // データの入れ替え
     x = y;
     y = z;
     z = w;
-    
+
     //
     return GLfloat(w ^= w >> 19 ^ t ^ t >> 8) * 2.3283064e-10f;
   }
@@ -317,18 +317,18 @@ namespace
   //
   // サンプラーの作成
   //
-  void createSampler(unsigned int samples, GLfloat (*sample)[3], GLfloat n)
+  void createSampler(unsigned int samples, GLfloat(*sample)[3], GLfloat n)
   {
     // e ← 1 / (n + 1)
     const GLfloat e(1.0f / (n + 1.0f));
-    
-    for (int i = 0; i < samples; ++i)
+
+    for (unsigned int i = 0; i < samples; ++i)
     {
       const GLfloat y(pow(1.0f - xor128(), e));
       const GLfloat r(sqrt(1.0f - y * y));
       const GLfloat t(6.2831853f * xor128());
       const GLfloat x(r * cos(t)), z(r * sin(t));
-      
+
       (*sample)[0] = x;
       (*sample)[1] = y;
       (*sample)[2] = z;
@@ -344,34 +344,35 @@ namespace
   {
     // a ← x^2 + z^2;
     const GLfloat a(x * x + z * z);
-    
+
+    // 回転する必要があるとき
     if (a > 0)
     {
       // l ← length(x, z);
       const GLfloat l(sqrt(a));
-      
+
       // m ← [(x, y, z) x (0, 1, 0), (x, y, z), (x, y, z) x (0, 1, 0) x (x, y, z)]
       const GLfloat m00(-z / l), m10(0.0f), m20(x / l);
       const GLfloat m01(x), m11(y), m21(z);
       const GLfloat m02(-m20 * y), m12(l), m22(m00 * y);
 
       // 回転してコピー
-      for (int i = 0; i < samples; ++i)
+      for (unsigned int i = 0; i < samples; ++i)
       {
         result[i][0] = m00 * sample[i][0] + m01 * sample[i][1] + m02 * sample[i][2];
         result[i][1] = m10 * sample[i][0] + m11 * sample[i][1] + m12 * sample[i][2];
         result[i][2] = m20 * sample[i][0] + m21 * sample[i][1] + m22 * sample[i][2];
       }
+
+      return;
     }
-    else
+
+    // 回転する必要がなければそのままコピー
+    for (unsigned int i = 0; i < samples; ++i)
     {
-      // そのままコピー
-      for (int i = 0; i < samples; ++i)
-      {
-        result[i][0] = sample[i][0];
-        result[i][1] = sample[i][1];
-        result[i][2] = sample[i][2];
-      }
+      result[i][0] = sample[i][0];
+      result[i][1] = sample[i][1];
+      result[i][2] = sample[i][2];
     }
   }
 
@@ -384,10 +385,10 @@ namespace
     // サンプラー
     GLfloat (*const sampler)[3](new GLfloat[samples][3]);
     createSampler(samples, sampler, shi);
- 
+
     // 回転したサンプラー
     GLfloat (*const rsampler)[3](new GLfloat[samples][3]);
-    
+
     // チャンネル数
     const int channels(format == GL_BGRA ? 4 : 3);
 
@@ -400,26 +401,26 @@ namespace
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
 
     // dst の各画素について
-    for (int dy = 0; dy < size; ++dy)
+    for (int dj = 0; dj < size; ++dj)
     {
-      std::cout << "Processing line: " << dy
-        << " (" << std::fixed << std::setprecision(1) << float(dy) * 100.0f / float(size) << "%)"
+      std::cout << "Processing line: " << dj
+        << " (" << std::fixed << std::setprecision(1) << float(dj) * 100.0f / float(size) << "%)"
         << std::endl;
 
-      for (int dx = 0; dx < size; ++dx)
+      for (int di = 0; di < size; ++di)
       {
         // この画素の dst のインデックス
-        const int id((dy * size + dx) * 3);
+        const int id((dj * size + di) * 3);
 
-        // この画素の dst 上の正規化された座標値 (-2 ≦ x, y ≦ 2)
-        const float x((float(dx * 4) / float(size - 1) - 2.0f));
-        const float y((float(dy * 4) / float(size - 1) - 2.0f));
+        // この画素の dst 上の正規化された座標値 [-2, 2]
+        const float x(4.0f * float(di) / float(size - 1) - 2.0f);
+        const float z(4.0f * float(dj) / float(size - 1) - 2.0f);
 
         // この画素の dst の中心からの距離の二乗
-        const float r(x * x + y * y);
+        const float r(x * x + z * z);
 
-        // この画素が dst 上の単位円 (r = 2) 外にあるとき
-        if (r >= 2.0f)
+        // この画素が dst 上の半径 2 の円 (球面を平面展開してできた円) 外にあるとき
+        if (r > 4.0f)
         {
           // 単位円外は大域環境光とする
           dst[id + 0] = GLubyte(round(ramb));
@@ -428,46 +429,48 @@ namespace
           continue;
         }
 
-        // dst の中心からの距離を天頂角とする方向ベクトルの Z 成分
-        const float z(cos(sqrt(r) * M_PI * 0.5f));
+        // dst の中心からの距離を天頂角とする方向ベクトルの Y 成分 [-1, 1]
+        const float y(cos(sqrt(r) * float(M_PI) * 0.5f));
 
-        // dst におけるこの画素の方向ベクトルの x, y 成分の長さ
-        const float d(sqrt((1.0f - z * z) / r));
+        // この画素の dst 中心からの距離 √r に対するこの方向ベクトルの x, z 成分の長さの比
+        const float d(sqrt((1.0f - y * y) / r));
 
         // dst におけるこの画素の方向単位ベクトル (nx, ny, nz)
         const float nx(x * d);
-        const float ny(y * d);
-        const float nz(z);
+        const float ny(y);
+        const float nz(z * d);
 
         // この方向に向けたサンプラー
         rotateSampler(samples, sampler, nx, ny, nz, rsampler);
-        
+
         // このベクトルの方向を天頂とする半天球からの放射照度の総和
         float rsum(0.0f), gsum(0.0f), bsum(0.0f);
 
-        for (int i = 0; i < samples; ++i)
+        for (unsigned int i = 0; i < samples; ++i)
         {
           // サンプラーの xz 平面上の長さ
           const GLfloat l(rsampler[i][0] * rsampler[i][0] + rsampler[i][2] * rsampler[i][2]);
           if (l == 0.0f)
           {
-            // サンプラーは真上に向いている
-            const int is((width * (height + 1) / 2) * channels);
-            rsum += float(src[is + 2]);
-            gsum += float(src[is + 1]);
-            bsum += float(src[is + 0]);
+            // src の中心 (真上) の画素位置
+            const int ic((width * (height + 1) / 2) * channels);
+
+            // 真上の画素の色を加算する
+            rsum += float(src[ic + 2]);
+            gsum += float(src[ic + 1]);
+            bsum += float(src[ic + 0]);
             continue;
           }
 
-          const GLfloat r(srcR * acos(rsampler[i][1]) * 2.0f / M_PI);
-          const GLfloat s(r / sqrt(l));
+          // サンプラーの xy 平面上の長さに対するこの方向にある画素の src の中心からの相対距離
+          const GLfloat s(acos(rsampler[i][1]) * 2.0f / (float(M_PI) * sqrt(l)));
+
+          // サンプラーの方向にある画素の src の中心からの相対位置
           const GLfloat tx(rsampler[i][0] * s);
           const GLfloat ty(rsampler[i][2] * s);
-          const int sx(int(round(tx + srcX)));
-          const int sy(int(round(ty + srcX)));
-          
+
           // サンプラーが天空画像外
-          if (0 && tx * tx + ty * ty >= srcR)
+          if (tx * tx + ty * ty >= 1.0f)
           {
             // 大域環境光を加算する
             rsum += ramb;
@@ -475,6 +478,10 @@ namespace
             bsum += bamb;
             continue;
           }
+
+          // この画素の画像上の画素位置
+          const int sx(int(round(srcR * tx + srcX)));
+          const int sy(int(round(srcR * ty + srcY)));
 
           // この画素の src のインデックス
           const int is((sy * width + sx) * channels);
@@ -519,7 +526,7 @@ namespace
 
     // 平滑した放射照度マップの一時保存先
     std::vector<GLubyte> itemp(isize * isize * 3);
-    
+
     // 放射照度マップ用に平滑する
     smooth(texture, width, height, format, radius, &itemp[0], isize, amb, 1.0f, isamples);
 
@@ -533,7 +540,7 @@ namespace
 
     // 平滑した環境マップの一時保存先
     std::vector<GLubyte> etemp(esize * esize * 3);
-    
+
     // 環境マップ用に平滑する
     smooth(texture, width, height, format, radius, &etemp[0], esize, amb, shi, esamples);
 
@@ -550,6 +557,8 @@ namespace
 
     // 作成したテクスチャの数を数える
     ++count;
+
+    return true;
   }
 #endif
 
@@ -568,11 +577,11 @@ namespace
 
     // 放射照度マップの値をかさ上げする Ce ← Cb + Ct
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD);            // 加算
+    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD);          // 加算
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_CONSTANT);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);     // Cb ← GL_TEXTURE_ENV_COLOR の RGB 値
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Cb ← GL_TEXTURE_ENV_COLOR の RGB 値
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);     // Ct ← 放射照度マップの値
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Ct ← 放射照度マップの値
 
     // テクスチャ座標の変換行列に放物面マッピング用の変換行列を設定する
     glMatrixMode(GL_TEXTURE);
@@ -673,7 +682,7 @@ int main()
 #else
     createMap(skymaps[i], skysize, imap[i], imapsize, isamples, emap[i], emapsize, esamples, ambient, shininess);
 #endif
-  }
+}
 
   // 放射照度マップのかさ上げに使うテクスチャユニットの設定
   glActiveTexture(GL_TEXTURE0);
