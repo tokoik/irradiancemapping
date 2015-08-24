@@ -9,7 +9,7 @@
 #include <algorithm>
 
 // 事前計算したマップを使用するなら 1
-#define USEMAP 1
+#define USEMAP 0
 
 // ウィンドウ関連の処理
 #include "Window.h"
@@ -119,7 +119,14 @@ namespace
   //
   // 作成するテクスチャのサイズ
   //
-  const GLsizei mapsize(256);
+  const GLsizei imapsize(64);
+  const GLsizei emapsize(256);
+  
+  //
+  // フィルタのサンプル数
+  //
+  const unsigned int isamples(256);
+  const unsigned int esamples(64);
 #endif
 
   //
@@ -286,11 +293,99 @@ namespace
   }
 #else
   //
+  // 一様乱数発生 (Xorshift 法)
+  //
+  GLfloat xor128()
+  {
+    static unsigned int x(123456789);
+    static unsigned int y(362436069);
+    static unsigned int z(521288629);
+    static unsigned int w(88675123);
+    const unsigned int t(x ^ x << 11);
+    
+    // データの入れ替え
+    x = y;
+    y = z;
+    z = w;
+    
+    //
+    return GLfloat(w ^= w >> 19 ^ t ^ t >> 8) * 2.3283064e-10f;
+  }
+
+  //
+  // サンプラーの作成
+  //
+  void createSampler(unsigned int samples, GLfloat (*sample)[3], GLfloat n)
+  {
+    // e ← 1 / (n + 1)
+    const GLfloat e(1.0f / (n + 1.0f));
+    
+    for (int i = 0; i < samples; ++i)
+    {
+      const GLfloat y(pow(1.0f - xor128(), e));
+      const GLfloat r(sqrt(1.0f - y * y));
+      const GLfloat t(6.2831853f * xor128());
+      const GLfloat x(r * cos(t)), z(r * sin(t));
+      
+      (*sample)[0] = x;
+      (*sample)[1] = y;
+      (*sample)[2] = z;
+      ++sample;
+    }
+  }
+
+  //
+  // サンプラーの回転
+  //
+  void rotateSampler(unsigned int samples, const GLfloat (*sample)[3],
+    const GLfloat x, const GLfloat y, const GLfloat z, GLfloat (*result)[3])
+  {
+    // a ← x^2 + z^2;
+    const GLfloat a(x * x + z * z);
+    
+    if (a > 0)
+    {
+      // l ← length(x, z);
+      const GLfloat l(sqrt(a));
+      
+      // m ← [(x, y, z) x (0, 1, 0), (x, y, z), (x, y, z) x (0, 1, 0) x (x, y, z)]
+      const GLfloat m00(-z / l), m10(0.0f), m20(x / l);
+      const GLfloat m01(x), m11(y), m21(z);
+      const GLfloat m02(-m20 * y), m12(l), m22(m00 * y);
+
+      // 回転してコピー
+      for (int i = 0; i < samples; ++i)
+      {
+        result[i][0] = m00 * sample[i][0] + m01 * sample[i][1] + m02 * sample[i][2];
+        result[i][1] = m10 * sample[i][0] + m11 * sample[i][1] + m12 * sample[i][2];
+        result[i][2] = m20 * sample[i][0] + m21 * sample[i][1] + m22 * sample[i][2];
+      }
+    }
+    else
+    {
+      // そのままコピー
+      for (int i = 0; i < samples; ++i)
+      {
+        result[i][0] = sample[i][0];
+        result[i][1] = sample[i][1];
+        result[i][2] = sample[i][2];
+      }
+    }
+  }
+
+  //
   // 平滑化
   //
   void smooth(const GLubyte *src, GLsizei width, GLsizei height, GLenum format, GLsizei area,
-    GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi)
+    GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi, unsigned int samples)
   {
+    // サンプラー
+    GLfloat (*const sampler)[3](new GLfloat[samples][3]);
+    createSampler(samples, sampler, shi);
+ 
+    // 回転したサンプラー
+    GLfloat (*const rsampler)[3](new GLfloat[samples][3]);
+    
     // チャンネル数
     const int channels(format == GL_BGRA ? 4 : 3);
 
@@ -316,15 +411,15 @@ namespace
         // この画素の dst のインデックス
         const int id((dy * size + dx) * 3);
 
-        // この画素の dst 上の正規化された座標値 (-1 ≦ x, y ≦ 1)
-        const float x((float(dx * 2) / float(size - 1) - 1.0f));
-        const float y((float(dy * 2) / float(size - 1) - 1.0f));
+        // この画素の dst 上の正規化された座標値 (-2 ≦ x, y ≦ 2)
+        const float x((float(dx * 4) / float(size - 1) - 2.0f));
+        const float y((float(dy * 4) / float(size - 1) - 2.0f));
 
         // この画素の dst の中心からの距離の二乗
         const float r(x * x + y * y);
 
-        // この画素が dst 上の単位円外にあるとき
-        if (0 && r >= 1.0f)
+        // この画素が dst 上の単位円 (r = 2) 外にあるとき
+        if (r >= 2.0f)
         {
           // 単位円外は大域環境光とする
           dst[id + 0] = GLubyte(round(ramb));
@@ -344,83 +439,41 @@ namespace
         const float ny(y * d);
         const float nz(z);
 
-        // dst のこの画素の src における対応する画素の位置
-        const int cx(int(round(scale * float(dx) + ox)));
-        const int cy(int(round(scale * float(dy) + oy)));
-
+        // この方向に向けたサンプラー
+        rotateSampler(samples, sampler, nx, ny, nz, rsampler);
+        
         // このベクトルの方向を天頂とする半天球からの放射照度の総和
         float rsum(0.0f), gsum(0.0f), bsum(0.0f);
 
-        // 半天球の重み付け立体角の総和
-        float wtotal(0.0f);
-
-        // src の (cx, cy) を中心とし area x area の範囲の各画素について
-        for (int ry = 0; ry < area; ++ry)
+        for (int i = 0; i < samples; ++i)
         {
-          for (int rx = 0; rx < area; ++rx)
+          const GLfloat r(acos(rsampler[i][1]) * 2.0f / M_PI);
+          const GLfloat l(sqrt(rsampler[i][0] * rsampler[i][0] + rsampler[i][2] * rsampler[i][2]) * scale);
+          const int sx(int(round(rsampler[i][0] / l + ox)));
+          const int sy(int(round(rsampler[i][2] / l + oy)));
+          
+          if (sx < 0 || sx >= width || sy < 0 || sy >= height)
           {
-            // この画素の src 上の位置
-            const int sx(cx + rx - area / 2);
-            const int sy(cy + ry - area / 2);
-
-            // この画素の src 上の正規化された座標値 (-1 ≦ x, y ≦ 1)
-            const float x((float(sx * 2) / float(area - 1) - 1.0f));
-            const float y((float(sy * 2) / float(area - 1) - 1.0f));
-
-            // この画素の src の中心からの距離の二乗
-            const float r(x * x + y * y);
-
-            // src の中心からの距離を天頂角とする方向ベクトルの Z 成分
-            const float z(cos(sqrt(r) * M_PI * 0.5f));
-
-            // 方向ベクトルの x, y 成分の長さを求める
-            const float d(sqrt((1.0f - z * z) / r));
-
-            // src におけるこの画素の方向単位ベクトル (lx, ly, lz)
-            const float lx(x * d);
-            const float ly(y * d);
-            const float lz(z);
-
-            // n と l の内積
-            const float nl(nx * lx + ny * ly + nz * lz);
-
-            // この画素が (nx, ny, nz) 方向の裏側にあるとき
-            if (nl <= 0.0f) continue;
-
-            // この点の立体角
-            const float theta(acos(nl));
-            const float sr(theta > 0.0f ? sqrt(1.0f - nl * nl) / theta : 1.0f);
-
-            // shininess を反映する
-            const float ns(pow(nl, shi) * sr);
-
-            // 重み付け立体角を積算する
-            wtotal += ns;
-
-            // この画素が src 上の単位円外にあるとき
-            if (r >= 1.0f)
-            {
-              // 大域環境光を加算する
-              rsum += ramb * ns;
-              gsum += gamb * ns;
-              bsum += bamb * ns;
-              continue;
-            }
-
-            // この画素の src のインデックス
-            const int is((sy * width + sx) * channels);
-
-            // src の画素値を dst に加算する
-            rsum += float(src[is + 2]) * ns;
-            gsum += float(src[is + 1]) * ns;
-            bsum += float(src[is + 0]) * ns;
+            // 大域環境光を加算する
+            rsum += ramb;
+            gsum += gamb;
+            bsum += bamb;
+            continue;
           }
+
+          // この画素の src のインデックス
+          const int is((sy * width + sx) * channels);
+
+          // src の画素値を dst に加算する
+          rsum += float(src[is + 2]);
+          gsum += float(src[is + 1]);
+          bsum += float(src[is + 0]);
         }
 
-        // 重み付け立体角の総和（天空の面積）で割る
-        dst[id + 0] = GLubyte(round(rsum / wtotal));
-        dst[id + 1] = GLubyte(round(gsum / wtotal));
-        dst[id + 2] = GLubyte(round(bsum / wtotal));
+        // サンプル点の平均を求める
+        dst[id + 0] = GLubyte(round(rsum / float(samples)));
+        dst[id + 1] = GLubyte(round(gsum / float(samples)));
+        dst[id + 2] = GLubyte(round(bsum / float(samples)));
       }
     }
   }
@@ -428,7 +481,9 @@ namespace
   //
   // 放射照度マップの作成
   //
-  bool createMap(const char *name, GLsizei radius, GLuint imap, GLuint emap, GLsizei size,
+  bool createMap(const char *name, GLsizei radius,
+    GLuint imap, GLsizei isize, unsigned int isamples,
+    GLuint emap, GLsizei esize, unsigned int esamples,
     const GLfloat *amb, GLfloat shi)
   {
     // 作成したテクスチャの数
@@ -444,33 +499,36 @@ namespace
     // 画像が読み込めなければ終了
     if (!texture) return false;
 
-    // テクスチャの平滑結果の一時保存先
-    std::vector<GLubyte> temp(size * size * 3);
-
     // radius, width, height の最小値を radius にする
     radius = std::min(radius, std::min(width, height));
 
+    // 平滑した放射照度マップの一時保存先
+    std::vector<GLubyte> itemp(isize * isize * 3);
+    
     // 放射照度マップ用に平滑する
-    smooth(texture, width, height, format, radius, &temp[0], size, amb, 1.0f);
+    smooth(texture, width, height, format, radius, &itemp[0], isize, amb, 1.0f, isamples);
 
     // 放射照度マップのテクスチャを作成する
-    createTexture(&temp[0], width, height, GL_RGB, amb, imap);
+    createTexture(&itemp[0], width, height, GL_RGB, amb, imap);
 
     // 作成したテクスチャを保存する
     std::stringstream imapname;
     imapname << "irr" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
-    ggSaveTga(size, size, 3, &temp[0], imapname.str().c_str());
+    ggSaveTga(isize, isize, 3, &itemp[0], imapname.str().c_str());
 
+    // 平滑した環境マップの一時保存先
+    std::vector<GLubyte> etemp(esize * esize * 3);
+    
     // 環境マップ用に平滑する
-    smooth(texture, width, height, format, radius, &temp[0], size, amb, shi);
+    smooth(texture, width, height, format, radius, &etemp[0], esize, amb, shi, esamples);
 
     // 環境マップのテクスチャを作成する
-    createTexture(&temp[0], width, height, GL_RGB, amb, emap);
+    createTexture(&etemp[0], width, height, GL_RGB, amb, emap);
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
     emapname << "env" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
-    ggSaveTga(size, size, 3, &temp[0], emapname.str().c_str());
+    ggSaveTga(esize, esize, 3, &etemp[0], emapname.str().c_str());
 
     // 読み込んだデータはもう使わないのでメモリを解放する
     delete[] texture;
@@ -598,7 +656,7 @@ int main()
 #if USEMAP
     loadMap(irrmaps[i], envmaps[i], imap[i], emap[i]);
 #else
-    createMap(skymaps[i], skysize, imap[i], emap[i], mapsize, ambient, shininess);
+    createMap(skymaps[i], skysize, imap[i], imapsize, isamples, emap[i], emapsize, esamples, ambient, shininess);
 #endif
   }
 
