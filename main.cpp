@@ -417,7 +417,7 @@ namespace
           }
         }
 
-        // 平均 (4 * (area / 2) ^ 2)
+        // 重み付け立体角の総和（天空の面積）で割る
         dst[id + 0] = GLubyte(round(rsum / wtotal));
         dst[id + 1] = GLubyte(round(gsum / wtotal));
         dst[id + 2] = GLubyte(round(bsum / wtotal));
@@ -458,7 +458,7 @@ namespace
 
     // 作成したテクスチャを保存する
     std::stringstream imapname;
-    imapname << "imap" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
+    imapname << "irrmap" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
     ggSaveTga(size, size, 3, &temp[0], imapname.str().c_str());
 
     // 環境マップ用に平滑する
@@ -469,7 +469,7 @@ namespace
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
-    emapname << "emap" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
+    emapname << "envmap" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
     ggSaveTga(size, size, 3, &temp[0], emapname.str().c_str());
 
     // 読み込んだデータはもう使わないのでメモリを解放する
