@@ -119,14 +119,14 @@ namespace
   //
   // 作成するテクスチャのサイズ
   //
-  const GLsizei imapsize(64);
+  const GLsizei imapsize(256);
   const GLsizei emapsize(256);
 
   //
   // フィルタのサンプル数
   //
-  const unsigned int isamples(256);
-  const unsigned int esamples(64);
+  const unsigned int isamples(2048);
+  const unsigned int esamples(2048);
 #endif
 
   //
@@ -134,8 +134,8 @@ namespace
   //
   const GLfloat paraboloid[] =
   {
-    -0.5f,  0.0f,  0.0f,  0.0f,
-     1.0f,  0.5f,  0.0f,  2.0f,
+    -1.0f,  0.0f,  0.0f,  0.0f,
+     1.0f,  1.0f,  0.0f,  2.0f,
      0.0f, -1.0f,  0.0f,  0.0f,
      1.0f,  1.0f,  0.0f,  2.0f,
   };
@@ -384,16 +384,16 @@ namespace
     GLfloat (*const sampler)[3](new GLfloat[samples][3]);
     createSampler(samples, sampler, shi);
 
-    // 回転したサンプラー
+    // 回転したサンプラーの保存先
     GLfloat (*const rsampler)[3](new GLfloat[samples][3]);
+
+    // src の半径と中心
+    const float srcR(float(area - 1) * 0.5f);
+    const float srcX(float(width - 1) * 0.5f);
+    const float srcY(float(height - 1) * 0.5f);
 
     // チャンネル数
     const int channels(format == GL_BGRA ? 4 : 3);
-
-    // src の半径と中心
-    const float srcR(float(area) * 0.5f);
-    const float srcX(float(width) * 0.5f);
-    const float srcY(float(height) * 0.5f);
 
     // 大域環境光強度
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
@@ -411,14 +411,14 @@ namespace
         const int id((dj * size + di) * 3);
 
         // この画素の dst 上の正規化された座標値 [-2, 2]
-        const float x(4.0f * float(di) / float(size - 1) - 2.0f);
-        const float z(4.0f * float(dj) / float(size - 1) - 2.0f);
+        const float x(2.0f * float(di) / float(size - 1) - 1.0f);
+        const float z(2.0f * float(dj) / float(size - 1) - 1.0f);
 
         // この画素の dst の中心からの距離の二乗
         const float r(x * x + z * z);
 
-        // この画素が dst 上の半径 2 の円 (球面を平面展開してできた円) 外にあるとき
-        if (r > 4.0f)
+        // この画素が dst 上の単位円外にあるとき
+        if (r > 1.0f)
         {
           // 単位円外は大域環境光とする
           dst[id + 0] = GLubyte(round(ramb));
@@ -427,10 +427,10 @@ namespace
           continue;
         }
 
-        // dst の中心からの距離を天頂角とする方向ベクトルの Y 成分 [-1, 1]
+        // dst の中心からの距離を天頂角とする方向ベクトルの y 成分 [cos(0), cos(π/2)]
         const float y(cos(sqrt(r) * float(M_PI) * 0.5f));
 
-        // この画素の dst 中心からの距離 √r に対するこの方向ベクトルの x, z 成分の長さの比
+        // この画素の dst 中心からの距離 √r に対するこの方向ベクトルの xz 平面上の長さの比
         const float d(sqrt((1.0f - y * y) / r));
 
         // dst におけるこの画素の方向単位ベクトル (nx, ny, nz)
@@ -464,11 +464,11 @@ namespace
           const GLfloat s(acos(rsampler[i][1]) * 2.0f / (float(M_PI) * sqrt(l)));
 
           // サンプラーの方向にある画素の src の中心からの相対位置
-          const GLfloat tx(rsampler[i][0] * s);
-          const GLfloat ty(rsampler[i][2] * s);
+          const GLfloat sx(rsampler[i][0] * s);
+          const GLfloat sz(rsampler[i][2] * s);
 
-          // サンプラーが天空画像外
-          if (tx * tx + ty * ty >= 1.0f)
+          // サンプラーが src の天空画像の外を指しているとき
+          if (sx * sx + sz * sz >= 1.0f)
           {
             // 大域環境光を加算する
             rsum += ramb;
@@ -478,11 +478,13 @@ namespace
           }
 
           // この画素の画像上の画素位置
-          const int sx(int(round(srcR * tx + srcX)));
-          const int sy(int(round(srcR * ty + srcY)));
+          const int si(int(round(srcR * sx + srcX)));
+          const int sj(int(round(srcR * sz + srcY)));
+          //const int si(int(round((float(area) * sx + float(width)) * 0.5f)));
+          //const int sj(int(round((float(area) * sz + float(height)) * 0.5f)));
 
           // この画素の src のインデックス
-          const int is((sy * width + sx) * channels);
+          const int is((sj * width + si) * channels);
 
           // src の画素値を dst に加算する
           rsum += float(src[is + 2]);
@@ -496,6 +498,10 @@ namespace
         dst[id + 2] = GLubyte(round(bsum / float(samples)));
       }
     }
+
+    // サンプラに使ったメモリの開放
+    delete[] sampler;
+    delete[] rsampler;
   }
 
   //
