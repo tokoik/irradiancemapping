@@ -288,65 +288,44 @@ namespace
   //
   // 平滑化
   //
-  void smooth(const GLubyte *src, GLsizei width, GLsizei height, GLenum format, GLsizei area,
+  void smooth(const GLubyte *src, GLsizei width, GLsizei height, GLenum format,
+    GLsizei cs, GLsizei ct, GLsizei rs, GLsizei rt,
     GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi)
   {
     // チャンネル数
     const int channels(format == GL_BGRA ? 4 : 3);
 
-    // src に対する dst の拡大率
-    const float scale(float(area) / float(size));
-
-    // dst に対する src の中心のオフセット
-    const float ox(float(width - area) * 0.5f);
-    const float oy(float(height - area) * 0.5f);
-
     // 大域環境光強度
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
 
-    // dst の各画素について
-    for (int dy = 0; dy < size; ++dy)
+    // 放射照度マップの各画素について
+    for (int dt = 0; dt < size; ++dt)
     {
-      std::cout << "Processing line: " << dy
-        << " (" << std::fixed << std::setprecision(1) << float(dy) * 100.0f / float(size) << "%)"
+      std::cout << "Processing line: " << dt
+        << " (" << std::fixed << std::setprecision(1) << float(dt) * 100.0f / float(size) << "%)"
         << std::endl;
 
-      for (int dx = 0; dx < size; ++dx)
+      for (int ds = 0; ds < size; ++ds)
       {
         // この画素の dst のインデックス
-        const int id((dy * size + dx) * 3);
+        const int id((dt * size + ds) * 3);
 
-        // この画素の dst 上の正規化された座標値 (-1 ≦ x, y ≦ 1)
-        const float x((float(dx * 2) / float(size - 1) - 1.0f));
-        const float y((float(dy * 2) / float(size - 1) - 1.0f));
+        // この画素の dst 上の正規化された座標値 (-1 ≦ u, v ≦ 1)
+        const float du((float(ds * 2) / float(size - 1) - 1.0f));
+        const float dv((float(dt * 2) / float(size - 1) - 1.0f));
 
-        // この画素の dst の中心からの距離の二乗
-        const float r(x * x + y * y);
+        // 放射照度マップの画素の方向ベクトル
+        const float rx(du);
+        const float ry(1.0f - du * du - dv * dv);
+        const float rz(dv);
 
-        // この画素が dst 上の単位円外にあるとき
-        if (0 && r >= 1.0f)
+        if (ry <= 0.0f)
         {
-          // 単位円外は大域環境光とする
-          dst[id + 0] = GLubyte(round(ramb));
-          dst[id + 1] = GLubyte(round(gamb));
-          dst[id + 2] = GLubyte(round(bamb));
+          dst[id + 0] = ramb;
+          dst[id + 1] = gamb;
+          dst[id + 2] = bamb;
           continue;
         }
-
-        // dst の中心からの距離を天頂角とする方向ベクトルの Z 成分
-        const float z(cos(sqrt(r) * M_PI * 0.5f));
-
-        // dst におけるこの画素の方向ベクトルの x, y 成分の長さ
-        const float d(sqrt((1.0f - z * z) / r));
-
-        // dst におけるこの画素の方向単位ベクトル (nx, ny, nz)
-        const float nx(x * d);
-        const float ny(y * d);
-        const float nz(z);
-
-        // dst のこの画素の src における対応する画素の位置
-        const int cx(int(round(scale * float(dx) + ox)));
-        const int cy(int(round(scale * float(dy) + oy)));
 
         // このベクトルの方向を天頂とする半天球からの放射照度の総和
         float rsum(0.0f), gsum(0.0f), bsum(0.0f);
@@ -355,34 +334,29 @@ namespace
         float wtotal(0.0f);
 
         // src の (cx, cy) を中心とし area x area の範囲の各画素について
-        for (int ry = 0; ry < area; ++ry)
+        for (int st = ct - rt; st <= ct + rt; ++st)
         {
-          for (int rx = 0; rx < area; ++rx)
+          for (int ss = cs - rs; ss <= cs + rs; ++ss)
           {
-            // この画素の src 上の位置
-            const int sx(cx + rx - area / 2);
-            const int sy(cy + ry - area / 2);
+            // この画素の天空画像上の正規化された座標値 (-1 ≦ x, y ≦ 1)
+            const float su(float(ss - cs) / float(rs));
+            const float sv(float(ct - st) / float(rt));
 
-            // この画素の src 上の正規化された座標値 (-1 ≦ x, y ≦ 1)
-            const float x((float(sx * 2) / float(area - 1) - 1.0f));
-            const float y((float(sy * 2) / float(area - 1) - 1.0f));
+            // この画素の天空画像の中心からの距離の二乗
+            const float r(su * su + sv * sv);
 
-            // この画素の src の中心からの距離の二乗
-            const float r(x * x + y * y);
+            // 天空画像の中心からの距離を天頂角とする方向ベクトルの y 成分
+            const float ny(cos(sqrt(r) * M_PI * 0.5f));
 
-            // src の中心からの距離を天頂角とする方向ベクトルの Z 成分
-            const float z(cos(sqrt(r) * M_PI * 0.5f));
+            // 天空画像の中心からの距離に対する方向ベクトルの xz 成分の長さの比
+            const float l(r > 0.0f ? sqrt((1.0f - ny * ny) / r) : 0.0f);
 
-            // 方向ベクトルの x, y 成分の長さを求める
-            const float d(sqrt((1.0f - z * z) / r));
+            // この画素の天空に向かう方向ベクトルの x 成分と z 成分
+            const float nx(su * l);
+            const float nz(sv * l);
 
-            // src におけるこの画素の方向単位ベクトル (lx, ly, lz)
-            const float lx(x * d);
-            const float ly(y * d);
-            const float lz(z);
-
-            // n と l の内積
-            const float nl(nx * lx + ny * ly + nz * lz);
+            // n と r の内積
+            const float nl(nx * rx + ny * ry + nz * rz);
 
             // この画素が (nx, ny, nz) 方向の裏側にあるとき
             if (nl <= 0.0f) continue;
@@ -397,7 +371,7 @@ namespace
             // 重み付け立体角を積算する
             wtotal += ns;
 
-            // この画素が src 上の単位円外にあるとき
+            // この画素が天空画像の単位円外にあるとき
             if (r >= 1.0f)
             {
               // 大域環境光を加算する
@@ -408,7 +382,7 @@ namespace
             }
 
             // この画素の src のインデックス
-            const int is((sy * width + sx) * channels);
+            const int is((st * width + ss) * channels);
 
             // src の画素値を dst に加算する
             rsum += float(src[is + 2]) * ns;
@@ -428,7 +402,7 @@ namespace
   //
   // 放射照度マップの作成
   //
-  bool createMap(const char *name, GLsizei radius, GLuint imap, GLuint emap, GLsizei size,
+  bool createMap(const char *name, GLsizei diameter, GLuint imap, GLuint emap, GLsizei size,
     const GLfloat *amb, GLfloat shi)
   {
     // 作成したテクスチャの数
@@ -447,11 +421,14 @@ namespace
     // テクスチャの平滑結果の一時保存先
     std::vector<GLubyte> temp(size * size * 3);
 
-    // radius, width, height の最小値を radius にする
-    radius = std::min(radius, std::min(width, height));
+    // この画像の中心位置
+    const GLsizei cx(width / 2), cy(height / 2);
+    
+    // diameter, width, height の最小値の 1 / 2 を radius にする
+    const GLsizei radius(std::min(diameter, std::min(width, height)) / 2);
 
     // 放射照度マップ用に平滑する
-    smooth(texture, width, height, format, radius, &temp[0], size, amb, 1.0f);
+    smooth(texture, width, height, format, cx, cy, radius, radius, &temp[0], size, amb, 1.0f);
 
     // 放射照度マップのテクスチャを作成する
     createTexture(&temp[0], width, height, GL_RGB, amb, imap);
@@ -462,7 +439,7 @@ namespace
     ggSaveTga(size, size, 3, &temp[0], imapname.str().c_str());
 
     // 環境マップ用に平滑する
-    smooth(texture, width, height, format, radius, &temp[0], size, amb, shi);
+    smooth(texture, width, height, format, cx, cy, radius, radius, &temp[0], size, amb, shi);
 
     // 環境マップのテクスチャを作成する
     createTexture(&temp[0], width, height, GL_RGB, amb, emap);
