@@ -319,8 +319,10 @@ namespace
         const float ry(1.0f - du * du - dv * dv);
         const float rz(dv);
 
+        // この画素が放射照度マップの単位円外にあるとき
         if (ry <= 0.0f)
         {
+          // 大域環境光を設定する
           dst[id + 0] = ramb;
           dst[id + 1] = gamb;
           dst[id + 2] = bamb;
@@ -423,7 +425,7 @@ namespace
 
     // この画像の中心位置
     const GLsizei cx(width / 2), cy(height / 2);
-    
+
     // diameter, width, height の最小値の 1 / 2 を radius にする
     const GLsizei radius(std::min(diameter, std::min(width, height)) / 2);
 
