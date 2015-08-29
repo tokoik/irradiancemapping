@@ -307,10 +307,10 @@ namespace
 
       for (int ds = 0; ds < size; ++ds)
       {
-        // この画素の dst のインデックス
+        // この画素の配列 dst のインデックス
         const int id((dt * size + ds) * 3);
 
-        // この画素の dst 上の正規化された座標値 (-1 ≦ u, v ≦ 1)
+        // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
         const float du((float(ds * 2) / float(size - 1) - 1.0f));
         const float dv((float(dt * 2) / float(size - 1) - 1.0f));
 
