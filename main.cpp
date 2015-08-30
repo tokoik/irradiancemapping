@@ -419,9 +419,9 @@ namespace
         if (ry <= 0.0f)
         {
           // ‘åˆæŠÂ‹«Œõ‚ðÝ’è‚·‚é
-          dst[id + 0] = ramb;
-          dst[id + 1] = gamb;
-          dst[id + 2] = bamb;
+          dst[id + 0] = GLubyte(ramb);
+          dst[id + 1] = GLubyte(gamb);
+          dst[id + 2] = GLubyte(bamb);
           continue;
         }
 
