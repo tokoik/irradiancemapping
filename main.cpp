@@ -119,7 +119,8 @@ namespace
   //
   // 作成するテクスチャのサイズ
   //
-  const GLsizei mapsize(256);
+  const GLsizei imapsize(256);
+  const GLsizei emapsize(256);
 #endif
 
   //
@@ -358,17 +359,19 @@ namespace
             const float nz(sv * l);
 
             // n と r の内積
-            const float nl(nx * rx + ny * ry + nz * rz);
+            const float nr(nx * rx + ny * ry + nz * rz);
 
-            // この画素が (nx, ny, nz) 方向の裏側にあるとき
-            if (nl <= 0.0f) continue;
+            // この画素が (rx, ry, rz) 方向の裏側にあるとき
+            if (nr <= 0.0f) continue;
 
-            // この点の立体角
-            const float theta(acos(nl));
-            const float sr(theta > 0.0f ? sqrt(1.0f - nl * nl) / theta : 1.0f);
+            // この点の天頂角
+            const float theta(acos(nr));
 
-            // shininess を反映する
-            const float ns(pow(nl, shi) * sr);
+            // この点の立体角 (√(1 - cosθ^2) / θ = sinθ / θ = sincθ)
+            const float sr(theta > 0.0f ? sqrt(1.0f - nr * nr) / theta : 1.0f);
+
+            // shininess を立体角に反映する
+            const float ns(pow(nr, shi) * sr);
 
             // 重み付け立体角を積算する
             wtotal += ns;
@@ -383,7 +386,7 @@ namespace
               continue;
             }
 
-            // この画素の src のインデックス
+            // この画素の天空画像の配列 src のインデックス
             const int is((st * width + ss) * channels);
 
             // src の画素値を dst に加算する
@@ -404,7 +407,9 @@ namespace
   //
   // 放射照度マップの作成
   //
-  bool createMap(const char *name, GLsizei diameter, GLuint imap, GLuint emap, GLsizei size,
+  bool createMap(const char *name, GLsizei diameter,
+    GLuint imap, GLsizei isize,
+    GLuint emap, GLsizei esize,
     const GLfloat *amb, GLfloat shi)
   {
     // 作成したテクスチャの数
@@ -420,36 +425,39 @@ namespace
     // 画像が読み込めなければ終了
     if (!texture) return false;
 
-    // テクスチャの平滑結果の一時保存先
-    std::vector<GLubyte> temp(size * size * 3);
-
     // この画像の中心位置
     const GLsizei cx(width / 2), cy(height / 2);
 
     // diameter, width, height の最小値の 1 / 2 を radius にする
     const GLsizei radius(std::min(diameter, std::min(width, height)) / 2);
 
+    // 平滑した放射照度マップの一時保存先
+    std::vector<GLubyte> itemp(isize * isize * 3);
+
     // 放射照度マップ用に平滑する
-    smooth(texture, width, height, format, cx, cy, radius, radius, &temp[0], size, amb, 1.0f);
+    smooth(texture, width, height, format, cx, cy, radius, radius, &itemp[0], isize, amb, 1.0f);
 
     // 放射照度マップのテクスチャを作成する
-    createTexture(&temp[0], width, height, GL_RGB, amb, imap);
+    createTexture(&itemp[0], width, height, GL_RGB, amb, imap);
 
     // 作成したテクスチャを保存する
     std::stringstream imapname;
     imapname << "irr" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
-    ggSaveTga(size, size, 3, &temp[0], imapname.str().c_str());
+    ggSaveTga(isize, isize, 3, &itemp[0], imapname.str().c_str());
+
+    // 平滑した環境マップの一時保存先
+    std::vector<GLubyte> etemp(esize * esize * 3);
 
     // 環境マップ用に平滑する
-    smooth(texture, width, height, format, cx, cy, radius, radius, &temp[0], size, amb, shi);
+    smooth(texture, width, height, format, cx, cy, radius, radius, &etemp[0], esize, amb, shi);
 
     // 環境マップのテクスチャを作成する
-    createTexture(&temp[0], width, height, GL_RGB, amb, emap);
+    createTexture(&etemp[0], width, height, GL_RGB, amb, emap);
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
     emapname << "env" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
-    ggSaveTga(size, size, 3, &temp[0], emapname.str().c_str());
+    ggSaveTga(esize, esize, 3, &etemp[0], emapname.str().c_str());
 
     // 読み込んだデータはもう使わないのでメモリを解放する
     delete[] texture;
@@ -577,7 +585,7 @@ int main()
 #if USEMAP
     loadMap(irrmaps[i], envmaps[i], imap[i], emap[i]);
 #else
-    createMap(skymaps[i], skysize, imap[i], emap[i], mapsize, ambient, shininess);
+    createMap(skymaps[i], skysize, imap[i], imapsize, emap[i], emapsize, ambient, shininess);
 #endif
   }
 
