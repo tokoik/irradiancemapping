@@ -406,20 +406,20 @@ namespace
 
       for (int ds = 0; ds < size; ++ds)
       {
-        // この画素の配列 dst のインデックス
+        // この画素の放射照度マップの配列 dst のインデックス
         const int id((dt * size + ds) * 3);
 
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
         const float du(float(ds * 2) / float(size - 1) - 1.0f);
         const float dv(1.0f - float(dt * 2) / float(size - 1));
 
-        // 放射照度マップの画素の方向ベクトル
-        const float rx(du);
-        const float ry(1.0f - du * du - dv * dv);
-        const float rz(dv);
+        // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
+        const float qx(du);
+        const float qy(1.0f - du * du - dv * dv);
+        const float qz(dv);
 
         // この画素が放射照度マップの単位円外にあるとき
-        if (ry <= 0.0f)
+        if (qy <= 0.0f)
         {
           // 大域環境光を設定する
           dst[id + 0] = GLubyte(ramb);
@@ -429,7 +429,7 @@ namespace
         }
 
         // サンプラーをこのベクトルの方向に向ける
-        rotateSampler(samples, sampler, rx, ry, rz, rsampler);
+        rotateSampler(samples, sampler, qx, qy, qz, rsampler);
 
         // このベクトルの方向を天頂とする半天球からの放射照度の総和
         float rsum(0.0f), gsum(0.0f), bsum(0.0f);
@@ -437,13 +437,13 @@ namespace
         for (unsigned int i = 0; i < samples; ++i)
         {
           // 天空に向かうベクトル
-          const GLfloat &nx(rsampler[i][0]);
-          const GLfloat &ny(rsampler[i][1]);
-          const GLfloat &nz(rsampler[i][2]);
-          const GLfloat &nr(rsampler[i][3]);  // n と r の内積
+          const GLfloat &px(rsampler[i][0]);
+          const GLfloat &py(rsampler[i][1]);
+          const GLfloat &pz(rsampler[i][2]);
+          const GLfloat &pq(rsampler[i][3]);  // p と q の内積
 
-          // このベクトルが天空画像の領域の外 (反対側) を指しているとき
-          if (ny <= 0.0f)
+          // このベクトル p が天空画像の領域の外 (裏側) を指しているとき
+          if (py <= 0.0f)
           {
             // 大域環境光を加算する
             rsum += ramb;
@@ -453,36 +453,36 @@ namespace
           }
 
           // このベクトルの xz 平面上の長さの 2 乗
-          const GLfloat l(1.0f - ny * ny);
+          const GLfloat l(1.0f - py * py);
 
           // このベクトルの xz 平面上の長さに対する天頂角から求めた天空画像の中心からの正規化された距離の比
-          const GLfloat r(l > 0.0f ? acos(ny) * 2.0f / (float(M_PI) * sqrt(l)) : 0.0f);
+          const GLfloat r(l > 0.0f ? acos(py) * 2.0f / (float(M_PI) * sqrt(l)) : 0.0f);
 
-          // この画素の天空画像上の正規化された座標値 (-1 ≦ u, v ≦ 1)
-          const GLfloat su(nx * r);
-          const GLfloat sv(nz * r);
+          // このベクトルの向いている方向の天空画像における正規化された座標値 (-1 ≦ u, v ≦ 1)
+          const GLfloat su(px * r);
+          const GLfloat sv(pz * r);
 
-          // この画素の画像上の画素位置
+          // この画素の天空画像上の画素位置
           const int ss(int(round(float(rs) * su)) - cs);
           const int st(ct - int(round(float(rt) * sv)));
 
           // この画素の天空画像の配列 src のインデックス
           const int is((st * width + ss) * channels);
 
-          // src の画素値を dst に加算する
+          // 天空画像 src の画素値を放射照度マップ dst の画素に加算する
           rsum += float(src[is + 2]);
           gsum += float(src[is + 1]);
           bsum += float(src[is + 0]);
         }
 
-        // サンプル点の平均を求める
+        // 放射照度マップの画素値の平均を求める
         dst[id + 0] = GLubyte(round(rsum / float(samples)));
         dst[id + 1] = GLubyte(round(gsum / float(samples)));
         dst[id + 2] = GLubyte(round(bsum / float(samples)));
       }
     }
 
-    // サンプラに使ったメモリの開放
+    // サンプラに使ったメモリを開放する
     delete[] sampler;
     delete[] rsampler;
   }
