@@ -674,7 +674,7 @@ int main()
 #else
     createMap(skymaps[i], skysize, imap[i], imapsize, isamples, emap[i], emapsize, esamples, ambient, shininess);
 #endif
-}
+  }
 
   // 放射照度マップのかさ上げに使うテクスチャユニットの設定
   glActiveTexture(GL_TEXTURE0);
