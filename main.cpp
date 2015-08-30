@@ -308,20 +308,20 @@ namespace
 
       for (int ds = 0; ds < size; ++ds)
       {
-        // この画素の配列 dst のインデックス
+        // この画素の放射照度マップの配列 dst のインデックス
         const int id((dt * size + ds) * 3);
 
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
         const float du(float(ds * 2) / float(size - 1) - 1.0f);
         const float dv(1.0f - float(dt * 2) / float(size - 1));
 
-        // 放射照度マップの画素の方向ベクトル
-        const float rx(du);
-        const float ry(1.0f - du * du - dv * dv);
-        const float rz(dv);
+        // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
+        const float qx(du);
+        const float qy(1.0f - du * du - dv * dv);
+        const float qz(dv);
 
         // この画素が放射照度マップの単位円外にあるとき
-        if (ry <= 0.0f)
+        if (qy <= 0.0f)
         {
           // 大域環境光を設定する
           dst[id + 0] = GLubyte(ramb);
@@ -336,7 +336,7 @@ namespace
         // 半天球の重み付け立体角の総和
         float wtotal(0.0f);
 
-        // src の (cx, cy) を中心とし area x area の範囲の各画素について
+        // src の (cx, cy) を中心とし [-rs, rs] x [-rt, rt] の範囲の各画素について
         for (int st = ct - rt; st <= ct + rt; ++st)
         {
           for (int ss = cs - rs; ss <= cs + rs; ++ss)
@@ -348,41 +348,41 @@ namespace
             // この画素の天空画像の中心からの距離の二乗
             const float r(su * su + sv * sv);
 
-            // 天空画像の中心からの距離を天頂角とする方向ベクトルの y 成分
-            const float ny(cos(sqrt(r) * float(M_PI) * 0.5f));
+            // この画素の天空画像の中心からの距離を天頂角とする方向ベクトル p の y 成分
+            const float py(cos(sqrt(r) * float(M_PI) * 0.5f));
 
-            // 天空画像の中心からの距離に対する方向ベクトルの xz 成分の長さの比
-            const float l(r > 0.0f ? sqrt((1.0f - ny * ny) / r) : 0.0f);
+            // この画素の天空画像の中心からの距離に対する方向ベクトル q の xz 成分の長さの比
+            const float l(r > 0.0f ? sqrt((1.0f - py * py) / r) : 0.0f);
 
-            // この画素の天空に向かう方向ベクトルの x 成分と z 成分
-            const float nx(su * l);
-            const float nz(sv * l);
+            // この画素の天空に向かう方向ベクトル q の x 成分と z 成分
+            const float px(su * l);
+            const float pz(sv * l);
 
-            // n と r の内積
-            const float nr(nx * rx + ny * ry + nz * rz);
+            // p と q の内積
+            const float pq(px * qx + py * qy + pz * qz);
 
-            // この画素が (rx, ry, rz) 方向の裏側にあるとき
-            if (nr <= 0.0f) continue;
+            // この画素の方向 p が放射照度マップの方向ベクトル q の反対側を向いているとき
+            if (pq <= 0.0f) continue;
 
-            // この点の天頂角
-            const float theta(acos(nr));
+            // この画素の方向 p の天頂角
+            const float theta(acos(pq));
 
-            // この点の立体角 (√(1 - cosθ^2) / θ = sinθ / θ = sincθ)
-            const float sr(theta > 0.0f ? sqrt(1.0f - nr * nr) / theta : 1.0f);
+            // この画素の方向 p の立体角 (√(1 - cosθ^2) / θ = sinθ / θ = sincθ)
+            const float sr(theta > 0.0f ? sqrt(1.0f - pq * pq) / theta : 1.0f);
 
-            // shininess を立体角に反映する
-            const float ns(pow(nr, shi) * sr);
+            // この画素の方向 p の立体角に shininess の重みをつける
+            const float dw(pow(pq, shi) * sr);
 
             // 重み付け立体角を積算する
-            wtotal += ns;
+            wtotal += dw;
 
             // この画素が天空画像の単位円外にあるとき
             if (r >= 1.0f)
             {
               // 大域環境光を加算する
-              rsum += ramb * ns;
-              gsum += gamb * ns;
-              bsum += bamb * ns;
+              rsum += ramb * dw;
+              gsum += gamb * dw;
+              bsum += bamb * dw;
               continue;
             }
 
@@ -390,9 +390,9 @@ namespace
             const int is((st * width + ss) * channels);
 
             // src の画素値を dst に加算する
-            rsum += float(src[is + 2]) * ns;
-            gsum += float(src[is + 1]) * ns;
-            bsum += float(src[is + 0]) * ns;
+            rsum += float(src[is + 2]) * dw;
+            gsum += float(src[is + 1]) * dw;
+            bsum += float(src[is + 0]) * dw;
           }
         }
 
