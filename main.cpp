@@ -464,6 +464,8 @@ namespace
 
     // 作成したテクスチャの数を数える
     ++count;
+
+    return true;
   }
 #endif
 
@@ -482,11 +484,11 @@ namespace
 
     // 放射照度マップの値をかさ上げする Ce ← Cb + Ct
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD);            // 加算
+    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD);          // 加算
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_CONSTANT);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);     // Cb ← GL_TEXTURE_ENV_COLOR の RGB 値
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Cb ← GL_TEXTURE_ENV_COLOR の RGB 値
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);     // Ct ← 放射照度マップの値
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Ct ← 放射照度マップの値
 
     // テクスチャ座標の変換行列に放物面マッピング用の変換行列を設定する
     glMatrixMode(GL_TEXTURE);
