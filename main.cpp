@@ -9,7 +9,7 @@
 #include <algorithm>
 
 // 事前計算したマップを使用するなら 1
-#define USEMAP 0
+#define USEMAP 1
 
 // ウィンドウ関連の処理
 #include "Window.h"
@@ -434,9 +434,9 @@ namespace
         for (unsigned int i = 0; i < samples; ++i)
         {
           // 天空に向かうベクトル
-          const GLfloat nx(rsampler[i][0]);
-          const GLfloat ny(rsampler[i][1]);
-          const GLfloat nz(rsampler[i][2]);
+          const GLfloat &nx(rsampler[i][0]);
+          const GLfloat &ny(rsampler[i][1]);
+          const GLfloat &nz(rsampler[i][2]);
 
           // n と r の内積
           const float nr(nx * rx + ny * ry + nz * rz);
