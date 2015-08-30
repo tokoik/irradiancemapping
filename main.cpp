@@ -324,9 +324,9 @@ namespace
         if (ry <= 0.0f)
         {
           // 大域環境光を設定する
-          dst[id + 0] = ramb;
-          dst[id + 1] = gamb;
-          dst[id + 2] = bamb;
+          dst[id + 0] = GLubyte(ramb);
+          dst[id + 1] = GLubyte(gamb);
+          dst[id + 2] = GLubyte(bamb);
           continue;
         }
 
@@ -349,7 +349,7 @@ namespace
             const float r(su * su + sv * sv);
 
             // 天空画像の中心からの距離を天頂角とする方向ベクトルの y 成分
-            const float ny(cos(sqrt(r) * M_PI * 0.5f));
+            const float ny(cos(sqrt(r) * float(M_PI) * 0.5f));
 
             // 天空画像の中心からの距離に対する方向ベクトルの xz 成分の長さの比
             const float l(r > 0.0f ? sqrt((1.0f - ny * ny) / r) : 0.0f);
