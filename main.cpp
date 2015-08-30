@@ -315,7 +315,7 @@ namespace
   //
   // サンプラーの作成
   //
-  void createSampler(unsigned int samples, GLfloat(*sample)[3], GLfloat n)
+  void createSampler(unsigned int samples, GLfloat(*sample)[4], GLfloat n)
   {
     // e ← 1 / (n + 1)
     const GLfloat e(1.0f / (n + 1.0f));
@@ -330,6 +330,7 @@ namespace
       (*sample)[0] = x;
       (*sample)[1] = y;
       (*sample)[2] = z;
+      (*sample)[3] = y; // (0, 1, 0) との内積
       ++sample;
     }
   }
@@ -337,8 +338,8 @@ namespace
   //
   // サンプラーの回転
   //
-  void rotateSampler(unsigned int samples, const GLfloat (*sample)[3],
-    const GLfloat x, const GLfloat y, const GLfloat z, GLfloat (*result)[3])
+  void rotateSampler(unsigned int samples, const GLfloat (*sample)[4],
+    const GLfloat x, const GLfloat y, const GLfloat z, GLfloat (*result)[4])
   {
     // a ← x^2 + z^2;
     const GLfloat a(x * x + z * z);
@@ -360,6 +361,7 @@ namespace
         result[i][0] = m00 * sample[i][0] + m01 * sample[i][1] + m02 * sample[i][2];
         result[i][1] = m10 * sample[i][0] + m11 * sample[i][1] + m12 * sample[i][2];
         result[i][2] = m20 * sample[i][0] + m21 * sample[i][1] + m22 * sample[i][2];
+        result[i][3] = sample[i][3];
       }
 
       return;
@@ -371,6 +373,7 @@ namespace
       result[i][0] = sample[i][0];
       result[i][1] = sample[i][1];
       result[i][2] = sample[i][2];
+      result[i][3] = sample[i][3];
     }
   }
 
@@ -382,11 +385,11 @@ namespace
     GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi)
   {
     // サンプラー
-    GLfloat (*const sampler)[3](new GLfloat[samples][3]);
+    GLfloat (*const sampler)[4](new GLfloat[samples][4]);
     createSampler(samples, sampler, shi);
 
     // 回転したサンプラーの保存先
-    GLfloat (*const rsampler)[3](new GLfloat[samples][3]);
+    GLfloat (*const rsampler)[4](new GLfloat[samples][4]);
 
     // チャンネル数
     const int channels(format == GL_BGRA ? 4 : 3);
@@ -437,12 +440,7 @@ namespace
           const GLfloat &nx(rsampler[i][0]);
           const GLfloat &ny(rsampler[i][1]);
           const GLfloat &nz(rsampler[i][2]);
-
-          // n と r の内積
-          const float nr(nx * rx + ny * ry + nz * rz);
-
-          // この画素が (rx, ry, rz) 方向の裏側にあるとき
-          if (nr <= 0.0f) continue;
+          const GLfloat &nr(rsampler[i][3]);  // n と r の内積
 
           // このベクトルが天空画像の領域の外 (反対側) を指しているとき
           if (ny <= 0.0f)
