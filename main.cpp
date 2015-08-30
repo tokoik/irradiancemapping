@@ -341,7 +341,7 @@ namespace
         {
           for (int ss = cs - rs; ss <= cs + rs; ++ss)
           {
-            // ‚±‚Ì‰æ‘f‚Ì“V‹ó‰æ‘œã‚Ì³‹K‰»‚³‚ê‚½À•W’l (-1 … x, y … 1)
+            // ‚±‚Ì‰æ‘f‚Ì“V‹ó‰æ‘œã‚Ì³‹K‰»‚³‚ê‚½À•W’l (-1 … u, v … 1)
             const float su(float(ss - cs) / float(rs));
             const float sv(float(ct - st) / float(rt));
 
