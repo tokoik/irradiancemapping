@@ -313,7 +313,7 @@ namespace
 
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
         const float du(float(ds * 2) / float(size - 1) - 1.0f);
-        const float dv(float(dt * 2) / float(size - 1) - 1.0f);
+        const float dv(1.0f - float(dt * 2) / float(size - 1));
 
         // 放射照度マップの画素の方向ベクトル
         const float rx(du);
