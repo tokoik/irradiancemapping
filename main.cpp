@@ -521,7 +521,7 @@ namespace
     smooth(texture, width, height, format, cx, cy, radius, radius, isamples, &itemp[0], isize, amb, 1.0f);
 
     // 放射照度マップのテクスチャを作成する
-    createTexture(&itemp[0], width, height, GL_RGB, amb, imap);
+    createTexture(&itemp[0], isize, isize, GL_RGB, amb, imap);
 
     // 作成したテクスチャを保存する
     std::stringstream imapname;
@@ -535,7 +535,7 @@ namespace
     smooth(texture, width, height, format, cx, cy, radius, radius, esamples, &etemp[0], esize, amb, shi);
 
     // 環境マップのテクスチャを作成する
-    createTexture(&etemp[0], width, height, GL_RGB, amb, emap);
+    createTexture(&etemp[0], esize, esize, GL_RGB, amb, emap);
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
