@@ -452,7 +452,7 @@ namespace
     smooth(texture, width, height, format, cx, cy, radius, radius, &etemp[0], esize, amb, shi);
 
     // 環境マップのテクスチャを作成する
-    createTexture(&etemp[0], isize, isize, GL_RGB, amb, emap);
+    createTexture(&etemp[0], esize, esize, GL_RGB, amb, emap);
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
