@@ -345,14 +345,14 @@ namespace
             const float su(float(ss - cs) / float(rs));
             const float sv(float(ct - st) / float(rt));
 
-            // この画素の天空画像の中心からの距離の二乗
-            const float r(su * su + sv * sv);
+            // この画素の天空画像の中心からの距離
+            const float r(sqrt(su * su + sv * sv));
 
             // この画素の天空画像の中心からの距離を天頂角とする方向ベクトル p の y 成分
-            const float py(cos(sqrt(r) * float(M_PI) * 0.5f));
+            const float py(cos(r * float(M_PI) * 0.5f));
 
             // この画素の天空画像の中心からの距離に対する方向ベクトル q の xz 成分の長さの比
-            const float l(r > 0.0f ? sqrt((1.0f - py * py) / r) : 0.0f);
+            const float l(r > 0.0f ? sqrt(1.0f - py * py) / r : 0.0f);
 
             // この画素の天空に向かう方向ベクトル q の x 成分と z 成分
             const float px(su * l);
@@ -438,7 +438,7 @@ namespace
     smooth(texture, width, height, format, cx, cy, radius, radius, &itemp[0], isize, amb, 1.0f);
 
     // 放射照度マップのテクスチャを作成する
-    createTexture(&itemp[0], width, height, GL_RGB, amb, imap);
+    createTexture(&itemp[0], isize, isize, GL_RGB, amb, imap);
 
     // 作成したテクスチャを保存する
     std::stringstream imapname;
@@ -452,7 +452,7 @@ namespace
     smooth(texture, width, height, format, cx, cy, radius, radius, &etemp[0], esize, amb, shi);
 
     // 環境マップのテクスチャを作成する
-    createTexture(&etemp[0], width, height, GL_RGB, amb, emap);
+    createTexture(&etemp[0], isize, isize, GL_RGB, amb, emap);
 
     // 作成したテクスチャを保存する
     std::stringstream emapname;
