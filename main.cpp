@@ -314,11 +314,13 @@ namespace
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
         const float du(float(ds * 2) / float(size - 1) - 1.0f);
         const float dv(1.0f - float(dt * 2) / float(size - 1));
+        const float dw(1.0f - du * du - dv * dv);
+        const float a(du * du + dv * dv + dw * dw);
 
         // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
-        const float qx(du);
-        const float qy(1.0f - du * du - dv * dv);
-        const float qz(dv);
+        const float qx(du / a);
+        const float qy(dw / a);
+        const float qz(dv / a);
 
         // この画素が放射照度マップの単位円外にあるとき
         if (qy <= 0.0f)
@@ -371,18 +373,18 @@ namespace
             const float sr(theta > 0.0f ? sqrt(1.0f - pq * pq) / theta : 1.0f);
 
             // この画素の方向 p の立体角に shininess の重みをつける
-            const float dw(pow(pq, shi) * sr);
+            const float da(pow(pq, shi) * sr);
 
             // 重み付け立体角を積算する
-            wtotal += dw;
+            wtotal += da;
 
             // この画素が天空画像の単位円外にあるとき
             if (r >= 1.0f)
             {
               // 大域環境光を加算する
-              rsum += ramb * dw;
-              gsum += gamb * dw;
-              bsum += bamb * dw;
+              rsum += ramb * da;
+              gsum += gamb * da;
+              bsum += bamb * da;
               continue;
             }
 
@@ -390,9 +392,9 @@ namespace
             const int is((st * width + ss) * channels);
 
             // src の画素値を dst に加算する
-            rsum += float(src[is + 2]) * dw;
-            gsum += float(src[is + 1]) * dw;
-            bsum += float(src[is + 0]) * dw;
+            rsum += float(src[is + 2]) * da;
+            gsum += float(src[is + 1]) * da;
+            bsum += float(src[is + 0]) * da;
           }
         }
 
