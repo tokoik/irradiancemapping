@@ -409,11 +409,13 @@ namespace
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
         const float du(float(ds * 2) / float(size - 1) - 1.0f);
         const float dv(1.0f - float(dt * 2) / float(size - 1));
+        const float dw(1.0f - du * du - dv * dv);
+        const float a(sqrt(du * du + dv * dv + dw * dw));
 
         // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
-        const float qx(du);
-        const float qy(1.0f - du * du - dv * dv);
-        const float qz(dv);
+        const float qx(du / a);
+        const float qy(dw / a);
+        const float qz(dv / a);
 
         // この画素が放射照度マップの単位円外にあるとき
         if (qy <= 0.0f)
