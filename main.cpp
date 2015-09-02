@@ -315,7 +315,7 @@ namespace
         const float du(float(ds * 2) / float(size - 1) - 1.0f);
         const float dv(1.0f - float(dt * 2) / float(size - 1));
         const float dw(1.0f - du * du - dv * dv);
-        const float a(du * du + dv * dv + dw * dw);
+        const float a(sqrt(du * du + dv * dv + dw * dw));
 
         // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
         const float qx(du / a);
