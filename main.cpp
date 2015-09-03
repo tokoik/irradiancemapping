@@ -300,20 +300,20 @@ namespace
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
 
     // 放射照度マップの各画素について
-    for (int ys = 0; ys < size; ++ys)
+    for (int yd = 0; yd < size; ++yd)
     {
-      std::cout << "Processing line: " << ys
-        << " (" << std::fixed << std::setprecision(1) << float(ys) * 100.0f / float(size) << "%)"
+      std::cout << "Processing line: " << yd
+        << " (" << std::fixed << std::setprecision(1) << float(yd) * 100.0f / float(size) << "%)"
         << std::endl;
 
-      for (int xs = 0; xs < size; ++xs)
+      for (int xd = 0; xd < size; ++xd)
       {
         // この画素の放射照度マップの配列 dst のインデックス
-        const int id((ys * size + xs) * 3);
+        const int id((yd * size + xd) * 3);
 
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
-        const float u(float(xs * 2) / float(size - 1) - 1.0f);
-        const float v(1.0f - float(ys * 2) / float(size - 1));
+        const float u(float(xd * 2) / float(size - 1) - 1.0f);
+        const float v(1.0f - float(yd * 2) / float(size - 1));
         const float m(u * u + v * v);
         const float w(1.0f - m);
         const float a(sqrt(m + w * w));
