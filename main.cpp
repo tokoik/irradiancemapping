@@ -290,7 +290,7 @@ namespace
   // 平滑化
   //
   void smooth(const GLubyte *src, GLsizei width, GLsizei height, GLenum format,
-    GLsizei cs, GLsizei ct, GLsizei rs, GLsizei rt,
+    GLsizei xc, GLsizei yc, GLsizei xr, GLsizei yr,
     GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi)
   {
     // チャンネル数
@@ -300,27 +300,28 @@ namespace
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
 
     // 放射照度マップの各画素について
-    for (int dt = 0; dt < size; ++dt)
+    for (int ys = 0; ys < size; ++ys)
     {
-      std::cout << "Processing line: " << dt
-        << " (" << std::fixed << std::setprecision(1) << float(dt) * 100.0f / float(size) << "%)"
+      std::cout << "Processing line: " << ys
+        << " (" << std::fixed << std::setprecision(1) << float(ys) * 100.0f / float(size) << "%)"
         << std::endl;
 
-      for (int ds = 0; ds < size; ++ds)
+      for (int xs = 0; xs < size; ++xs)
       {
         // この画素の放射照度マップの配列 dst のインデックス
-        const int id((dt * size + ds) * 3);
+        const int id((ys * size + xs) * 3);
 
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
-        const float du(float(ds * 2) / float(size - 1) - 1.0f);
-        const float dv(1.0f - float(dt * 2) / float(size - 1));
-        const float dw(1.0f - du * du - dv * dv);
-        const float a(sqrt(du * du + dv * dv + dw * dw));
+        const float u(float(xs * 2) / float(size - 1) - 1.0f);
+        const float v(1.0f - float(ys * 2) / float(size - 1));
+        const float m(u * u + v * v);
+        const float w(1.0f - m);
+        const float a(sqrt(m + w * w));
 
         // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
-        const float qx(du / a);
-        const float qy(dw / a);
-        const float qz(dv / a);
+        const float qx(u / a);
+        const float qy(w / a);
+        const float qz(v / a);
 
         // この画素が放射照度マップの単位円外にあるとき
         if (qy <= 0.0f)
@@ -338,17 +339,17 @@ namespace
         // 半天球の重み付け立体角の総和
         float wtotal(0.0f);
 
-        // src の (cx, cy) を中心とし [-rs, rs] x [-rt, rt] の範囲の各画素について
-        for (int st = ct - rt; st <= ct + rt; ++st)
+        // src の (xc, yc) を中心とし [-xr, xr] x [-yr, yr] の範囲の各画素について
+        for (int ys = yc - yr; ys <= yc + yr; ++ys)
         {
-          for (int ss = cs - rs; ss <= cs + rs; ++ss)
+          for (int xs = xc - xr; xs <= xc + xr; ++xs)
           {
-            // この画素の天空画像上の正規化された座標値 (-1 ≦ u, v ≦ 1)
-            const float su(float(ss - cs) / float(rs));
-            const float sv(float(ct - st) / float(rt));
+            // この画素の天空画像上の正規化された座標値 (-1 ≦ s, t ≦ 1)
+            const float s(float(xs - xc) / float(xr));
+            const float t(float(yc - ys) / float(yr));
 
             // この画素の天空画像の中心からの距離
-            const float r(sqrt(su * su + sv * sv));
+            const float r(sqrt(s * s + t * t));
 
             // この画素の天空画像の中心からの距離を天頂角とする方向ベクトル p の y 成分
             const float py(cos(r * float(M_PI) * 0.5f));
@@ -357,8 +358,8 @@ namespace
             const float l(r > 0.0f ? sqrt(1.0f - py * py) / r : 0.0f);
 
             // この画素の天空に向かう方向ベクトル q の x 成分と z 成分
-            const float px(su * l);
-            const float pz(sv * l);
+            const float px(s * l);
+            const float pz(t * l);
 
             // p と q の内積
             const float pq(px * qx + py * qy + pz * qz);
@@ -373,28 +374,28 @@ namespace
             const float sr(theta > 0.0f ? sqrt(1.0f - pq * pq) / theta : 1.0f);
 
             // この画素の方向 p の立体角に shininess の重みをつける
-            const float da(pow(pq, shi) * sr);
+            const float dw(pow(pq, shi) * sr);
 
             // 重み付け立体角を積算する
-            wtotal += da;
+            wtotal += dw;
 
             // この画素が天空画像の単位円外にあるとき
             if (r >= 1.0f)
             {
               // 大域環境光を加算する
-              rsum += ramb * da;
-              gsum += gamb * da;
-              bsum += bamb * da;
+              rsum += ramb * dw;
+              gsum += gamb * dw;
+              bsum += bamb * dw;
               continue;
             }
 
             // この画素の天空画像の配列 src のインデックス
-            const int is((st * width + ss) * channels);
+            const int is((ys * width + xs) * channels);
 
             // src の画素値を dst に加算する
-            rsum += float(src[is + 2]) * da;
-            gsum += float(src[is + 1]) * da;
-            bsum += float(src[is + 0]) * da;
+            rsum += float(src[is + 2]) * dw;
+            gsum += float(src[is + 1]) * dw;
+            bsum += float(src[is + 0]) * dw;
           }
         }
 
