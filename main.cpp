@@ -406,11 +406,11 @@ namespace
         // この画素の放射照度マップの配列 dst のインデックス
         const int id((yd * size + xd) * 3);
 
-        // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
-        const float u(float(xd * 2) / float(size - 1) - 1.0f);
-        const float v(1.0f - float(yd * 2) / float(size - 1));
+        // この画素の放射照度マップ上の正規化された座標値 (-0.5 ≦ u, v ≦ 0.5)
+        const float u(float(xd) / float(size - 1) - 0.5f);
+        const float v(0.5f - float(yd) / float(size - 1));
         const float m(u * u + v * v);
-        const float w(1.0f - m);
+        const float w(0.25f - m);
         const float a(sqrt(m + w * w));
 
         // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
