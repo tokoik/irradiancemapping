@@ -378,7 +378,7 @@ namespace
   // 平滑化
   //
   void smooth(const GLubyte *src, GLsizei width, GLsizei height, GLenum format,
-    GLsizei cs, GLsizei ct, GLsizei rs, GLsizei rt, unsigned int samples,
+    GLsizei xc, GLsizei yc, GLsizei xr, GLsizei yr, unsigned int samples,
     GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi)
   {
     // サンプラー
@@ -395,27 +395,28 @@ namespace
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
 
     // 放射照度マップの各画素について
-    for (int dt = 0; dt < size; ++dt)
+    for (int yd = 0; yd < size; ++yd)
     {
-      std::cout << "Processing line: " << dt
-        << " (" << std::fixed << std::setprecision(1) << float(dt) * 100.0f / float(size) << "%)"
+      std::cout << "Processing line: " << yd
+        << " (" << std::fixed << std::setprecision(1) << float(yd) * 100.0f / float(size) << "%)"
         << std::endl;
 
-      for (int ds = 0; ds < size; ++ds)
+      for (int xd = 0; xd < size; ++xd)
       {
         // この画素の放射照度マップの配列 dst のインデックス
-        const int id((dt * size + ds) * 3);
+        const int id((yd * size + xd) * 3);
 
         // この画素の放射照度マップ上の正規化された座標値 (-1 ≦ u, v ≦ 1)
-        const float du(float(ds * 2) / float(size - 1) - 1.0f);
-        const float dv(1.0f - float(dt * 2) / float(size - 1));
-        const float dw(1.0f - du * du - dv * dv);
-        const float a(sqrt(du * du + dv * dv + dw * dw));
+        const float u(float(xd * 2) / float(size - 1) - 1.0f);
+        const float v(1.0f - float(yd * 2) / float(size - 1));
+        const float m(u * u + v * v);
+        const float w(1.0f - m);
+        const float a(sqrt(m + w * w));
 
         // 放射照度マップを放物面マップとして参照するときのこの画素の方向ベクトル q
-        const float qx(du / a);
-        const float qy(dw / a);
-        const float qz(dv / a);
+        const float qx(u / a);
+        const float qy(w / a);
+        const float qz(v / a);
 
         // この画素が放射照度マップの単位円外にあるとき
         if (qy <= 0.0f)
@@ -457,15 +458,15 @@ namespace
           const GLfloat r(l > 0.0f ? acos(py) * 2.0f / (float(M_PI) * sqrt(l)) : 0.0f);
 
           // このベクトルの向いている方向の天空画像における正規化された座標値 (-1 ≦ u, v ≦ 1)
-          const GLfloat su(px * r);
-          const GLfloat sv(pz * r);
+          const GLfloat u(px * r);
+          const GLfloat v(pz * r);
 
           // この画素の天空画像上の画素位置
-          const int ss(int(round(float(rs) * su)) - cs);
-          const int st(ct - int(round(float(rt) * sv)));
+          const int xs(int(round(float(xr) * u)) - xc);
+          const int ys(yc - int(round(float(yr) * v)));
 
           // この画素の天空画像の配列 src のインデックス
-          const int is((st * width + ss) * channels);
+          const int is((ys * width + xs) * channels);
 
           // 天空画像 src の画素値を放射照度マップ dst の画素に加算する
           rsum += float(src[is + 2]);
