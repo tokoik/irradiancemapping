@@ -6706,11 +6706,11 @@ gg::GgMatrix &gg::GgMatrix::loadRotate(GLfloat x, GLfloat y, GLfloat z, GLfloat 
 
   if (d > 0.0f)
   {
-    GLfloat l  = x / d, m  = y / d, n  = z / d;
-    GLfloat l2 = l * l, m2 = m * m, n2 = n * n;
-    GLfloat lm = l * m, mn = m * n, nl = n * l;
-    GLfloat c = cos(a), c1 = 1.0f - c;
-    GLfloat s = sin(a);
+    const GLfloat l(x / d), m(y / d), n(z / d);
+    const GLfloat l2(l * l), m2(m * m), n2(n * n);
+    const GLfloat lm(l * m), mn(m * n), nl(n * l);
+    const GLfloat c(cos(a)), c1(1.0f - c);
+    const GLfloat s(sin(a));
 
     array[ 0] = (1.0f - l2) * c + l2;
     array[ 1] = lm * c1 + n * s;
