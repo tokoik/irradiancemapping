@@ -226,7 +226,7 @@
 		7D1E90DA1123E2F7005E6C75 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 7D1E90DD1123E2F7005E6C75 /* Build configuration list for PBXProject "irradiancemapping" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -324,7 +324,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				ENABLE_TESTABILITY = YES;
 				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
@@ -333,7 +333,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
-				MACOSX_DEPLOYMENT_TARGET = "";
 			};
 			name = Release;
 		};
@@ -366,6 +365,7 @@
 					Cocoa,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = irradiancemapping;
 			};
 			name = Debug;
@@ -399,6 +399,7 @@
 					Cocoa,
 				);
 				PREBINDING = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yourcompany.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = irradiancemapping;
 				ZERO_LINK = NO;
 			};
