@@ -40,6 +40,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #  endif
 #  pragma comment(lib, "opengl32.lib")
 #  define _USE_MATH_DEFINES
+#  define NOMINMAX
 #  include "glfw3.h"
 #  include "glext.h"
 extern PFNGLACCUMXOESPROC glAccumxOES;
