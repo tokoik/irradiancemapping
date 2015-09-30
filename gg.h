@@ -2538,7 +2538,7 @@ namespace gg
   **
   **   \param msg エラー発生時に標準エラー出力に出力する文字列. nullptr なら何も出力しない.
   */
-  extern void ggError(const char *msg = nullptr);
+  extern void ggError(const char *msg = NULL);
 
   /*!
   ** \brief FBO のエラーをチェックする.
@@ -2547,7 +2547,7 @@ namespace gg
   **
   **   \param msg エラー発生時に標準エラー出力に出力する文字列. nullptr なら何も出力しない.
   */
-  extern void ggFBOError(const char *msg = nullptr);
+  extern void ggFBOError(const char *msg = NULL);
 
   /*!
   ** \brief 配列の内容を TGA ファイルに保存する.
@@ -2598,7 +2598,7 @@ namespace gg
   **   \param image テクスチャとして読み込むデータ. NULL ならテクスチャメモリの確保のみ.
   */
   extern GLuint ggLoadTexture(GLsizei width, GLsizei height, GLenum internal,
-    GLenum format = GL_RGBA, const GLvoid *image = nullptr);
+    GLenum format = GL_RGBA, const GLvoid *image = NULL);
 
   /*!
   ** \brief TGA 画像ファイルをテクスチャとして読み込む.
@@ -2666,8 +2666,8 @@ namespace gg
   **   \param gtext ジオメトリシェーダのコンパイル時のメッセージに追加する文字列.
   **   \return シェーダプログラムのプログラム名 (作成できなければ 0).
   */
-  extern GLuint ggCreateShader(const char *vsrc, const char *fsrc = nullptr, const char *gsrc = nullptr,
-    int nvarying = 0, const char *varyings[] = nullptr,
+  extern GLuint ggCreateShader(const char *vsrc, const char *fsrc = NULL, const char *gsrc = NULL,
+    int nvarying = 0, const char *varyings[] = NULL,
     const char *vtext = "vertex shader",
     const char *ftext = "fragment shader",
     const char *gtext = "geometry shader");
@@ -2682,8 +2682,8 @@ namespace gg
   **   \param varyings フィードバックする varying 変数のリスト (nullptr なら不使用).
   **   \return シェーダプログラムのプログラム名 (作成できなければ 0).
   */
-  extern GLuint ggLoadShader(const char *vert, const char *frag = nullptr, const char *geom = nullptr,
-    int nvarying = 0, const char *varyings[] = nullptr);
+  extern GLuint ggLoadShader(const char *vert, const char *frag = NULL, const char *geom = NULL,
+    int nvarying = 0, const char *varyings[] = NULL);
 
   /*!
   ** \brief 3 要素の内積
@@ -5341,7 +5341,7 @@ namespace gg
   **   \param norm メッシュの頂点の法線ベクトル.
   */
   extern GgElements *ggElementsMesh(int slices, int stacks,
-    const GLfloat (*pos)[3], const GLfloat (*norm)[3] = nullptr);
+    const GLfloat (*pos)[3], const GLfloat (*norm)[3] = NULL);
 
   /*!
   ** 球状に三角形データを生成する (Elements 形式).
