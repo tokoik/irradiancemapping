@@ -4992,7 +4992,7 @@ void gg::ggInit()
 {
 #if defined(_WIN32)
   // OpenGL 1.2 以降の API を有効化する
-  if (glCreateProgram == nullptr) initGLExtFunc();
+  if (glCreateProgram == NULL) initGLExtFunc();
 #endif
 }
 
@@ -5001,7 +5001,7 @@ void gg::ggInit()
 **
 **   OpenGL の API を呼び出し直後に実行すればエラーのあるときにメッセージを表示する.
 **
-**   \param msg エラー発生時に標準エラー出力に出力する文字列. nullptr なら何も出力しない.
+**   \param msg エラー発生時に標準エラー出力に出力する文字列. NULL なら何も出力しない.
 */
 void gg::ggError(const char *msg)
 {
@@ -5040,7 +5040,7 @@ void gg::ggError(const char *msg)
 **
 **   FBO の API を呼び出し直後に実行すればエラーのあるときにメッセージを表示する.
 **
-**   \param msg エラー発生時に標準エラー出力に出力する文字列. nullptr なら何も出力しない.
+**   \param msg エラー発生時に標準エラー出力に出力する文字列. NULL なら何も出力しない.
 */
 void gg::ggFBOError(const char *msg)
 {
@@ -5231,7 +5231,7 @@ bool gg::ggSaveDepth(const char *name)
 **   \param width 読み込んだファイルの幅.
 **   \param height 読み込んだファイルの高さ.
 **   \param format 読み込んだファイルのフォーマット.
-**   \return 読み込んだ画像データのポインタ (要 delete, 読み込めなければ nullptr)
+**   \return 読み込んだ画像データのポインタ (要 delete, 読み込めなければ NULL)
 */
 GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum *format)
 {
@@ -5242,7 +5242,7 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
   if (!file)
   {
     std::cerr << "Error: Can't open file: " << name << std::endl;
-    return nullptr;
+    return NULL;
   }
 
   // ヘッダを読み込む
@@ -5254,7 +5254,7 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
   {
     std::cerr << "Error: Can't read file header: " << name << std::endl;
     file.close();
-    return nullptr;
+    return NULL;
   }
 
   // 幅と高さ
@@ -5281,7 +5281,7 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
     // 取り扱えないフォーマットだったら戻る
     std::cerr << "Error: Unusable format: " << depth << std::endl;
     file.close();
-    return nullptr;
+    return NULL;
   }
 
   // データサイズ
@@ -5291,11 +5291,11 @@ GLubyte *gg::ggLoadTga(const char *name, GLsizei *width, GLsizei *height, GLenum
   GLubyte *const buffer(new(std::nothrow) GLubyte[size]);
 
   // メモリが確保できなければ戻る
-  if (buffer == nullptr)
+  if (buffer == NULL)
   {
     std::cerr << "Error: Too large file: " << name << std::endl;
     file.close();
-    return nullptr;
+    return NULL;
   }
 
   // データを読み込む
@@ -5400,7 +5400,7 @@ GLuint gg::ggLoadImage(const char *name, GLenum internal)
   const GLubyte *const image(ggLoadTga(name, &width, &height, &format));
 
   // 画像が読み込めなかったら戻る
-  if (image == nullptr) return 0;
+  if (image == NULL) return 0;
 
   // internal == 0 なら内部フォーマットを読み込んだファイルに合わせる
   if (internal == 0)
@@ -5449,7 +5449,7 @@ GLuint gg::ggLoadHeight(const char *name, float nz, GLenum internal)
   const GLubyte *const hmap(ggLoadTga(name, &width, &height, &format));
 
   // 画像が読み込めなかったら戻る
-  if (hmap == nullptr) return 0;
+  if (hmap == NULL) return 0;
 
   // 画素のバイト数
   int bytes;
@@ -5479,7 +5479,7 @@ GLuint gg::ggLoadHeight(const char *name, float nz, GLenum internal)
   GLfloat (*const nmap)[4](new(std::nothrow) GLfloat[maxsize][4]);
 
   // メモリが確保できなければ戻る
-  if (nmap == nullptr)
+  if (nmap == NULL)
   {
     delete[] hmap;
     return 0;
@@ -5695,8 +5695,8 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
   file.close();
 
   // メモリの確保
-  pos = norm = nullptr;
-  face = nullptr;
+  pos = norm = NULL;
+  face = NULL;
   nv = static_cast<GLuint>(tpos.size());
   nf = static_cast<GLuint>(tface.size());
   try
@@ -5711,8 +5711,8 @@ bool gg::ggLoadObj(const char *name, GLuint &nv, GLfloat (*&pos)[3], GLfloat (*&
     delete[] norm;
     delete[] face;
 
-    pos = norm = nullptr;
-    face = nullptr;
+    pos = norm = NULL;
+    face = NULL;
 
     return false;
   }
@@ -5823,11 +5823,11 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
 {
   // 引数に初期値を設定する
   ng = 0;
-  group = nullptr;
-  amb = diff = spec = nullptr;
-  shi = nullptr;
+  group = NULL;
+  amb = diff = spec = NULL;
+  shi = NULL;
   nv = 0;
-  pos = norm = nullptr;
+  pos = norm = NULL;
 
   // ファイルパスからディレクトリ名を取り出す
   std::string path(name);
@@ -6116,16 +6116,16 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
   {
     // 必要な頂点数
     nv = nf * 3;
-    pos = norm = nullptr;
+    pos = norm = NULL;
 
     pos = new GLfloat[nv][3];
     norm = new GLfloat[nv][3];
 
     // 必要なグループ数
     ng = static_cast<GLuint>(tgroup.size());
-    group = nullptr;
-    amb = diff = spec = nullptr;
-    shi = nullptr;
+    group = NULL;
+    amb = diff = spec = NULL;
+    shi = NULL;
 
     group = new GLuint[ng][2];
     amb = new GLfloat[ng][4];
@@ -6139,7 +6139,7 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     delete[] norm;
 
     nv = 0;
-    pos = norm = nullptr;
+    pos = norm = NULL;
 
     delete[] group;
     delete[] amb;
@@ -6148,9 +6148,9 @@ bool gg::ggLoadObj(const char *name, GLuint &ng, GLuint (*&group)[2],
     delete[] shi;
 
     ng = 0;
-    group = nullptr;
-    amb = diff = spec = nullptr;
-    shi = nullptr;
+    group = NULL;
+    amb = diff = spec = NULL;
+    shi = NULL;
 
     return false;
   }
@@ -6410,10 +6410,10 @@ static GLboolean printProgramInfoLog(GLuint program)
 ** \brief シェーダのソースプログラムの文字列を読み込んでプログラムオブジェクトを作成する.
 **
 **   \param vsrc バーテックスシェーダのソースプログラムの文字列.
-**   \param fsrc フラグメントシェーダのソースプログラムの文字列 (nullptr なら不使用).
-**   \param gsrc ジオメトリシェーダのソースプログラムの文字列 (nullptr なら不使用).
+**   \param fsrc フラグメントシェーダのソースプログラムの文字列 (NULL なら不使用).
+**   \param gsrc ジオメトリシェーダのソースプログラムの文字列 (NULL なら不使用).
 **   \param nvarying フィードバックする varying 変数の数 (0 なら不使用).
-**   \param varyings フィードバックする varying 変数のリスト (nullptr なら不使用).
+**   \param varyings フィードバックする varying 変数のリスト (NULL なら不使用).
 **   \param vtext バーテックスシェーダのコンパイル時のメッセージに追加する文字列.
 **   \param ftext フラグメントシェーダのコンパイル時のメッセージに追加する文字列.
 **   \param gtext ジオメトリシェーダのコンパイル時のメッセージに追加する文字列.
@@ -6432,7 +6432,7 @@ GLuint gg::ggCreateShader(const char *vsrc, const char *fsrc, const char *gsrc,
     {
       // バーテックスシェーダのシェーダオブジェクトを作成する
       const GLuint vertShader(glCreateShader(GL_VERTEX_SHADER));
-      glShaderSource(vertShader, 1, &vsrc, nullptr);
+      glShaderSource(vertShader, 1, &vsrc, NULL);
       glCompileShader(vertShader);
 
       // バーテックスシェーダのシェーダオブジェクトをプログラムオブジェクトに組み込む
@@ -6445,7 +6445,7 @@ GLuint gg::ggCreateShader(const char *vsrc, const char *fsrc, const char *gsrc,
     {
       // フラグメントシェーダのシェーダオブジェクトを作成する
       const GLuint fragShader(glCreateShader(GL_FRAGMENT_SHADER));
-      glShaderSource(fragShader, 1, &fsrc, nullptr);
+      glShaderSource(fragShader, 1, &fsrc, NULL);
       glCompileShader(fragShader);
 
       // フラグメントシェーダのシェーダオブジェクトをプログラムオブジェクトに組み込む
@@ -6458,7 +6458,7 @@ GLuint gg::ggCreateShader(const char *vsrc, const char *fsrc, const char *gsrc,
     {
       // ジオメトリシェーダのシェーダオブジェクトを作成する
       const GLuint geomShader(glCreateShader(GL_GEOMETRY_SHADER));
-      glShaderSource(geomShader, 1, &gsrc, nullptr);
+      glShaderSource(geomShader, 1, &gsrc, NULL);
       glCompileShader(geomShader);
 
       // ジオメトリシェーダのシェーダオブジェクトをプログラムオブジェクトに組み込む
@@ -6491,8 +6491,8 @@ GLuint gg::ggCreateShader(const char *vsrc, const char *fsrc, const char *gsrc,
 */
 static GLchar *readShaderSource(const char *name)
 {
-  // ファイル名が nullptr なら nullptr を返す
-  if (name == nullptr) return nullptr;
+  // ファイル名が NULL なら NULL を返す
+  if (name == NULL) return NULL;
 
   // ソースファイルを開く
   std::ifstream file(name, std::ios::binary);
@@ -6501,7 +6501,7 @@ static GLchar *readShaderSource(const char *name)
   if (!file)
   {
     std::cerr << "Error: Can't open source file: " << name << std::endl;
-    return nullptr;
+    return NULL;
   }
 
   // ファイルの末尾に移動し現在位置（＝ファイルサイズ）を得る
@@ -6512,11 +6512,11 @@ static GLchar *readShaderSource(const char *name)
   GLchar *buffer(new(std::nothrow) GLchar[length + 1]);
 
   // メモリが確保できなければ戻る
-  if (buffer == nullptr)
+  if (buffer == NULL)
   {
     std::cerr << "Error: Too large file: " << name << std::endl;
     file.close();
-    return nullptr;
+    return NULL;
   }
 
   // ファイルを先頭から読み込む
@@ -6529,7 +6529,7 @@ static GLchar *readShaderSource(const char *name)
   {
     std::cerr << "Error: Could not read souce file: " << name << std::endl;
     delete[] buffer;
-    buffer = nullptr;
+    buffer = NULL;
   }
 
   // ファイルを閉じる
@@ -6543,10 +6543,10 @@ static GLchar *readShaderSource(const char *name)
 ** \brief シェーダのソースファイルを読み込んでプログラムオブジェクトを作成する.
 **
 **   \param vert バーテックスシェーダのソースファイル名.
-**   \param frag フラグメントシェーダのソースファイル名 (nullptr なら不使用).
-**   \param geom ジオメトリシェーダのソースファイル名 (nullptr なら不使用).
+**   \param frag フラグメントシェーダのソースファイル名 (NULL なら不使用).
+**   \param geom ジオメトリシェーダのソースファイル名 (NULL なら不使用).
 **   \param nvarying フィードバックする varying 変数の数 (0 なら不使用).
-**   \param varyings フィードバックする varying 変数のリスト (nullptr なら不使用).
+**   \param varyings フィードバックする varying 変数のリスト (NULL なら不使用).
 **   \return シェーダプログラムのプログラム名 (作成できなければ 0).
 */
 GLuint gg::ggLoadShader(const char *vert, const char *frag, const char *geom,
@@ -7322,7 +7322,7 @@ gg::GgPoints *gg::ggPointsCube(GLuint nv, GLfloat length, GLfloat cx, GLfloat cy
   GLfloat (*const pos)[3](new(std::nothrow) GLfloat[nv][3]);
 
   // メモリが確保できなければ戻る
-  if (pos == nullptr) return nullptr;
+  if (pos == NULL) return NULL;
 
   // 点を生成する
   for (GLuint v = 0; v < nv; ++v)
@@ -7358,7 +7358,7 @@ gg::GgPoints *gg::ggPointsSphere(GLuint nv, GLfloat radius,
   GLfloat (*const pos)[3](new(std::nothrow) GLfloat[nv][3]);
 
   // メモリが確保できなければ戻る
-  if (pos == nullptr) return nullptr;
+  if (pos == NULL) return NULL;
 
   // 点を生成する
   for (GLuint v = 0; v < nv; ++v)
@@ -7534,7 +7534,7 @@ gg::GgElements *gg::ggElementsMesh(int slices, int stacks, const GLfloat (*pos)[
   std::vector<GLfloat> tnorm;
 
   // 頂点の法線ベクトルの初期設定
-  if (norm == nullptr)
+  if (norm == NULL)
   {
     // 頂点の法線ベクトルを求める
     for (int j = 0; j <= stacks; ++j)
@@ -7709,7 +7709,7 @@ gg::GgObj::~GgObj()
 ** Wavefront OBJ 形式のデータ：コンストラクタ
 */
 gg::GgObj::GgObj(const char *name, bool normalize)
-  : data(nullptr), shader(nullptr)
+  : data(NULL), shader(NULL)
 {
   GLuint nv;
   GLfloat (*pos)[3], (*norm)[3];
