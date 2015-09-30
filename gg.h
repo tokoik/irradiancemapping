@@ -39,6 +39,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #    pragma comment(lib, "glfw3" GLFW3_EXT_STR)
 #  endif
 #  pragma comment(lib, "opengl32.lib")
+#  define _USE_MATH_DEFINES
 #  include "glfw3.h"
 #  include "glext.h"
 extern PFNGLACCUMXOESPROC glAccumxOES;
