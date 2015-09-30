@@ -2686,6 +2686,42 @@ namespace gg
     int nvarying = 0, const char *varyings[] = nullptr);
 
   /*!
+  ** \brief 3 —v‘f‚Ì“àÏ
+  **
+  **   \param a GLfloat Œ^‚Ì 3 —v‘f‚Ì”z—ñ.
+  **   \param b GLfloat Œ^‚Ì 3 —v‘f‚Ì”z—ñ.
+  */
+  inline GLfloat ggDot3(const GLfloat *a, const GLfloat *b)
+  {
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+  }
+
+  /*!
+  ** \brief 4 —v‘f‚Ì“àÏ
+  **
+  **   \param a GLfloat Œ^‚Ì 4 —v‘f‚Ì”z—ñ.
+  **   \param b GLfloat Œ^‚Ì 4 —v‘f‚Ì”z—ñ.
+  */
+  inline GLfloat ggDot4(const GLfloat *a, const GLfloat *b)
+  {
+    return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
+  }
+
+  /*!
+  ** \brief 3 —v‘f‚ÌŠOÏ
+  **
+  **   \param a GLfloat Œ^‚Ì 3 —v‘f‚Ì”z—ñ.
+  **   \param b GLfloat Œ^‚Ì 3 —v‘f‚Ì”z—ñ.
+  **   \param c Œ‹‰Ê‚ğŠi”[‚·‚é GLfloat Œ^‚Ì 3 —v‘f‚Ì”z—ñ.
+  */
+  inline void ggCross(GLfloat *c, const GLfloat *a, const GLfloat *b)
+  {
+    c[0] = a[1] * b[2] - a[2] * b[1];
+    c[1] = a[2] * b[0] - a[0] * b[2];
+    c[2] = a[0] * b[1] - a[1] * b[0];
+  }
+
+  /*!
   ** \brief Šî’êƒNƒ‰ƒX.
   */
   class Gg
