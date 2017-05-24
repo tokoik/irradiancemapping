@@ -34,3 +34,5 @@ ipch/
 #
 *~
 *.bak
+env0*.tga
+irr0*.tga
