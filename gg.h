@@ -3744,7 +3744,7 @@ namespace gg
     //!   \return a を引いた四元数.
     GgQuaternion &loadSubtract(const GLfloat *a)
     {
-      return loadSubtract(a);
+      return loadSubtract(a[0], a[1], a[2], a[3]);
     }
 
     //! \brief 四元数から別の四元数を減算した結果を格納する.
@@ -4227,7 +4227,7 @@ namespace gg
     //!   \param a 四元数を格納した GLfloat 型の 4 要素の配列.
     //!   \param t 補間パラメータ.
     //!   \return 四元数を a に対して t で内分した結果.
-    GgQuaternion slerp(GLfloat *a, GLfloat t) const
+    GgQuaternion slerp(const GLfloat *a, GLfloat t) const
     {
       GgQuaternion q;
       slerp(q.array, array, a, t);
