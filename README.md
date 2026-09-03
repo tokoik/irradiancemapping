@@ -1,54 +1,60 @@
-irradiancemapping
------------------
+# irradiancemapping - イラディアンスマッピングによる大域照明
 
-放射照度マッピングの解説用デモプログラム
+## 1. 概要
 
-    Copyright (c) 2011, 2012, 2013, 2014, 2015 Kohe Tokoi. All Rights Reserved.
-    
-    Permission is hereby granted, free of charge,  to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction,  including without limitation the rights
-    to use, copy,  modify, merge,  publish, distribute,  sublicense,  and/or sell
-    copies or substantial portions of the Software.
-    
-    The above  copyright notice  and this permission notice  shall be included in
-    all copies or substantial portions of the Software.
-    
-    THE SOFTWARE  IS PROVIDED "AS IS",  WITHOUT WARRANTY OF ANY KIND,  EXPRESS OR
-    IMPLIED,  INCLUDING  BUT  NOT LIMITED  TO THE WARRANTIES  OF MERCHANTABILITY,
-    FITNESS  FOR  A PARTICULAR PURPOSE  AND NONINFRINGEMENT.  IN  NO EVENT  SHALL
-    KOHE TOKOI  BE LIABLE FOR ANY CLAIM,  DAMAGES OR OTHER LIABILITY,  WHETHER IN
-    AN ACTION  OF CONTRACT,  TORT  OR  OTHERWISE,  ARISING  FROM,  OUT OF  OR  IN
-    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+本プログラムは、イラディアンス環境マップ（Irradiance Environment Map）を用いて、ディフューズ反射光の畳み込み計算結果を事前生成したテクスチャから高速に取得し、リアルタイムに環境光照度を反映するサンプルプログラムです。
 
-* GLFW の version 3 を使っています
-* シェーダを使わず OpenGL の regacy API だけで実装しています
-* Linux 用 Makefile, Xcode 6 プロジェクト, Visual Studio 2013 ソリューション付き
-* マウスの左ボタンドラッグでシーンを回転できます
-* ホイールでカメラを前後移動できます
-* 左右の矢印キーでテクスチャを切り替えられます
-* 上下の矢印キーで明るさを調整できます
-* 形状データには Alias OBJ ですがテッセレーションしないのであらかじめ三角形分割してください
+- 移行元ブログ記事:
+  - [イラディアンスマッピング (1) - 床井研究室](https://tokoik.github.io/blog/2015/08/26/)
+  - [イラディアンスマッピング (2) - 床井研究室](https://tokoik.github.io/blog/2015/08/28/)
 
-## 放射照度マップの作成について
+## 2. 対応環境
 
-* main.cpp の記号定数 USEMAP を 0 にすると天空画像から放射照度マップと環境マップを作成します
-* 天空画像には等距離射影方式の魚眼レンズで撮影した Targa (TGA) 形式の画像を指定してください
-* 画像の中央の min(画像の幅, 画像の高さ, 定数 skysize) 画素の正方形を天空画像として使います
-* 作成する画像の大きさは定数 mapsize に指定します
-* 定数 ambient は天空画像の範囲外の明るさとして使用しています
-* 定数 shininess を大きくすると環境マップがシャープになります
+- **Windows**: Visual Studio 2019 / 2022 / 2026 (CMake 経由で GLFW を自動構成)
+- **macOS**: Xcode (GLFW を自動ダウンロード、OpenGL Framework を使用)
+- **Ubuntu Linux**: GCC / Make (システム標準の libglfw3-dev, libgl1-mesa-dev を使用)
 
-### 注意
+## 3. ビルド手順
 
-放射照度マップの作成には, iMac Late 2013 (3.2 GHz Intel Core i5) で,
-天空画像が 256x256, mapsize が 256 の設定で 1 枚あたり 5 分かかります.
+### Windows (Visual Studio)
 
-放射照度マップは非常にぼけるので, 本当は天空画像の全面を平滑する必要はありません.
-数十ポイントランダムサンプリングすれば十分だと思います.
+```pwsh
+cmake -B build -S .
+cmake --build build --config Release
+```
 
-映り込みをボケさせたくない場合は, 天空画像そのものを環境マップに使ってください.
-その場合, 画像は 2^n x 2^n 画素の正方形である必要があります.
+### macOS (Xcode)
 
-Windows だと Debug ビルドでは OBJ ファイルの読み込みに非常に時間が狩ります.
-またいずれのプラットフォームでも, Debug ビルドでは放射照度マップの作成に時間がかかります.
+```bash
+cmake -B build -G Xcode
+cmake --build build --config Release
+```
+
+### Ubuntu Linux (Makefile)
+
+```bash
+sudo apt-get update
+sudo apt-get install -y libglfw3-dev libgl1-mesa-dev
+cmake -B build -S .
+cmake --build build
+```
+
+## 4. 起動方法
+
+ビルド完了後、生成された実行ファイルを実行します。
+
+- **Windows**: `build/Release/irradiancemapping.exe`
+- **macOS**: `build/Release/irradiancemapping.app`
+- **Linux**: `build/irradiancemapping`
+
+## 5. 操作方法
+
+- **マウス左ドラッグ**: シーンの視点回転
+- **マウス右ドラッグ**: 視点の平行移動
+- **マウスホイール**: ズーム
+- **[SPACE]**: マッピング手法 / 表示モデルの切り替え
+- **[q] / [Q] / [ESC]**: プログラムの終了
+
+## 6. プログラムの解説
+
+全天球画像（キューブマップまたは正距円錐図法）からディフューズ成分を球面調和関数または数値積分により前計算して求めたイラディアンスマップを参照し、スタンフォードバニー（`bunny.obj`）等のモデルに複雑な環境光ライティングを高速に適用しています。

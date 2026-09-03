@@ -1,4 +1,4 @@
-#define _USE_MATH_DEFINES
+ï»¿#define _USE_MATH_DEFINES
 #define NOMINMAX
 #include <cmath>
 #include <cstdlib>
@@ -8,22 +8,22 @@
 #include <iomanip>
 #include <algorithm>
 
-// –‘OŒvZ‚µ‚½ƒ}ƒbƒv‚ğg—p‚·‚é‚È‚ç 1
+// äº‹å‰è¨ˆç®—ã—ãŸãƒãƒƒãƒ—ã‚’ä½¿ç”¨ã™ã‚‹ãªã‚‰ 1
 #define USEMAP 1
 
-// ƒEƒBƒ“ƒhƒEŠÖ˜A‚Ìˆ—
+// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é–¢é€£ã®å‡¦ç†
 #include "Window.h"
 
 namespace
 {
   //
-  // OŠpŒ`•ªŠ„‚µ‚½ Alias OBJ Œ`®‚ÌŒ`óƒf[ƒ^ƒtƒ@ƒCƒ‹
+  // ä¸‰è§’å½¢åˆ†å‰²ã—ãŸ Alias OBJ å½¢å¼ã®å½¢çŠ¶ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
   //
   const char filename[] = "bunny.obj";
 
 #if USEMAP
   //
-  // •úËÆ“xƒ}ƒbƒv
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—
   //
   const char *const irrmaps[] =
   {
@@ -48,7 +48,7 @@ namespace
   };
 
   //
-  // ŠÂ‹«ƒ}ƒbƒv
+  // ç’°å¢ƒãƒãƒƒãƒ—
   //
   const char *const envmaps[] =
   {
@@ -73,12 +73,12 @@ namespace
   };
 
   //
-  // •úËÆ“xƒ}ƒbƒv‚Ì”
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®æ•°
   //
   const size_t mapcount(sizeof irrmaps / sizeof irrmaps[0]);
 #else
   //
-  // ‹——£Ë‰e•û®‚Ì‹›ŠáƒŒƒ“ƒY‚ÅB‰e‚µ‚½“V‹ó‰æ‘œ
+  // è·é›¢å°„å½±æ–¹å¼ã®é­šçœ¼ãƒ¬ãƒ³ã‚ºã§æ’®å½±ã—ãŸå¤©ç©ºç”»åƒ
   //
   const char *const skymaps[] =
   {
@@ -97,40 +97,40 @@ namespace
   };
 
   //
-  // “V‹ó‰æ‘œ‚Ì”
+  // å¤©ç©ºç”»åƒã®æ•°
   //
   const size_t mapcount(sizeof skymaps / sizeof skymaps[0]);
 
   //
-  // ‘åˆæŠÂ‹«Œõ‹­“x
+  // å¤§åŸŸç’°å¢ƒå…‰å¼·åº¦
   //
   const GLfloat ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 
   //
-  // ‹P‚«ŒW”
+  // è¼ãä¿‚æ•°
   //
   const GLfloat shininess(60.0f);
 
   //
-  // “V‹ó‰æ‘œ’†‚Ì“V‹ó—Ìˆæ‚Ì’¼Œa‚ÌÅ‘å’l
+  // å¤©ç©ºç”»åƒä¸­ã®å¤©ç©ºé ˜åŸŸã®ç›´å¾„ã®æœ€å¤§å€¤
   //
   const GLsizei skysize(1024);
 
   //
-  // ì¬‚·‚éƒeƒNƒXƒ`ƒƒ‚ÌƒTƒCƒY
+  // ä½œæˆã™ã‚‹ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚µã‚¤ã‚º
   //
   const GLsizei imapsize(256);
   const GLsizei emapsize(256);
 
   //
-  // ƒtƒBƒ‹ƒ^‚ÌƒTƒ“ƒvƒ‹”
+  // ãƒ•ã‚£ãƒ«ã‚¿ã®ã‚µãƒ³ãƒ—ãƒ«æ•°
   //
   const unsigned int isamples(256);
   const unsigned int esamples(256);
 #endif
 
   //
-  // •ú•¨–Êƒ}ƒbƒsƒ“ƒO—p‚ÌƒeƒNƒXƒ`ƒƒ•ÏŠ·s—ñ
+  // æ”¾ç‰©é¢ãƒãƒƒãƒ”ãƒ³ã‚°ç”¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£å¤‰æ›è¡Œåˆ—
   //
   const GLfloat paraboloid[] =
   {
@@ -141,11 +141,11 @@ namespace
   };
 
   //
-  // °‚Ì•`‰æ
+  // åºŠã®æç”»
   //
   void floor(int size, GLfloat height)
   {
-    // ƒ^ƒCƒ‹‚P–‡‚Ì’¸“_ƒf[ƒ^
+    // ã‚¿ã‚¤ãƒ«ï¼‘æšã®é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿
     static const GLfloat floorvert[] =
     {
       0.0f, 0.0f, 0.0f,
@@ -154,39 +154,39 @@ namespace
       1.0f, 0.0f, 0.0f
     };
 
-    // ƒ^ƒCƒ‹‚ÌŠgU”½ËŒW”
+    // ã‚¿ã‚¤ãƒ«ã®æ‹¡æ•£åå°„ä¿‚æ•°
     static const GLfloat floordiff[][4] =
     {
       { 0.6f, 0.6f, 0.6f, 1.0f },
       { 0.3f, 0.3f, 0.3f, 1.0f }
     };
 
-    // ƒ^ƒCƒ‹‚Ì‹¾–Ê”½ËŒW”
+    // ã‚¿ã‚¤ãƒ«ã®é¡é¢åå°„ä¿‚æ•°
     static const GLfloat floorspec[] =
     {
       0.1f, 0.1f, 0.1f, 1.0f
     };
 
-    // °‚Ìƒ|ƒŠƒSƒ“‚Ì’¸“_ˆÊ’u‚ğ’¸“_”z—ñ‚©‚çæ“¾‚·‚é
+    // åºŠã®ãƒãƒªã‚´ãƒ³ã®é ‚ç‚¹ä½ç½®ã‚’é ‚ç‚¹é…åˆ—ã‹ã‚‰å–å¾—ã™ã‚‹
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, floorvert);
 
-    // °‚Ìƒ|ƒŠƒSƒ“‚Ì–@üƒxƒNƒgƒ‹‚Í glNormal3f() ‚Åİ’è‚·‚é
+    // åºŠã®ãƒãƒªã‚´ãƒ³ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã¯ glNormal3f() ã§è¨­å®šã™ã‚‹
     glDisableClientState(GL_NORMAL_ARRAY);
     glNormal3f(0.0f, 1.0f, 0.0f);
 
-    // °‚Ìƒ|ƒŠƒSƒ“‚ÌŠgU”½ËŒõ‚Æ‹¾–Ê”½ËŒõ‚ğ‹¾–Ê”½ËŒW”‚Å”z•ª‚·‚é
+    // åºŠã®ãƒãƒªã‚´ãƒ³ã®æ‹¡æ•£åå°„å…‰ã¨é¡é¢åå°„å…‰ã‚’é¡é¢åå°„ä¿‚æ•°ã§é…åˆ†ã™ã‚‹
     glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, floorspec);
 
-    // °‚Ì•`‰æ
+    // åºŠã®æç”»
     for (int j = -size; j < size; ++j)
     {
       for (int i = -size; i < size; ++i)
       {
-        // °‚Ìƒ|ƒŠƒSƒ“‚ÌŠgU”½ËŒW”‚ğ primary color (’¸“_F) ‚Éİ’è‚·‚é
+        // åºŠã®ãƒãƒªã‚´ãƒ³ã®æ‹¡æ•£åå°„ä¿‚æ•°ã‚’ primary color (é ‚ç‚¹è‰²) ã«è¨­å®šã™ã‚‹
         glColor3fv(floordiff[(i + j) & 1]);
 
-        // °‚Ìƒ|ƒŠƒSƒ“‚ğ•`‰æ‚·‚é
+        // åºŠã®ãƒãƒªã‚´ãƒ³ã‚’æç”»ã™ã‚‹
         glPushMatrix();
         glTranslatef(GLfloat(i), height, GLfloat(j));
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
@@ -196,104 +196,104 @@ namespace
   }
 
   //
-  // ƒV[ƒ“‚Ì•`‰æ
+  // ã‚·ãƒ¼ãƒ³ã®æç”»
   //
   void scene(GLuint ng, const GLuint (*group)[2], const GLfloat (*diff)[4], const GLfloat (*spec)[4],
     GLuint nv, const GLfloat (*pos)[3], const GLfloat (*norm)[3])
   {
-    // ƒIƒuƒWƒFƒNƒg‚Ì’¸“_ˆÊ’u‚ğ’¸“_”z—ñ‚©‚çæ“¾‚·‚é
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é ‚ç‚¹ä½ç½®ã‚’é ‚ç‚¹é…åˆ—ã‹ã‚‰å–å¾—ã™ã‚‹
     glEnableClientState(GL_VERTEX_ARRAY);
     glVertexPointer(3, GL_FLOAT, 0, pos);
 
-    // ƒIƒuƒWƒFƒNƒg‚Ì–@üƒxƒNƒgƒ‹‚ğ’¸“_”z—ñ‚©‚çæ“¾‚·‚é
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚’é ‚ç‚¹é…åˆ—ã‹ã‚‰å–å¾—ã™ã‚‹
     glEnableClientState(GL_NORMAL_ARRAY);
     glNormalPointer(GL_FLOAT, 0, norm);
 
-    // ƒIƒuƒWƒFƒNƒg‚Ì•`‰æ
+    // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»
     for (unsigned int g = 0; g < ng; ++g)
     {
-      // ŠgU”½ËŒõ‚Æ‹¾–Ê”½ËŒõ‚ğ‹¾–Ê”½ËŒW”‚Å”z•ª‚·‚é
+      // æ‹¡æ•£åå°„å…‰ã¨é¡é¢åå°„å…‰ã‚’é¡é¢åå°„ä¿‚æ•°ã§é…åˆ†ã™ã‚‹
       glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, spec[g]);
 
-      // ŠgU”½ËŒW”‚ğ primary color (’¸“_F) ‚Éİ’è‚·‚é
+      // æ‹¡æ•£åå°„ä¿‚æ•°ã‚’ primary color (é ‚ç‚¹è‰²) ã«è¨­å®šã™ã‚‹
       glColor4fv(diff[g]);
 
-      // ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ‚·‚é
+      // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»ã™ã‚‹
       glDrawArrays(GL_TRIANGLES, group[g][0], group[g][1]);
     }
   }
 
   //
-  // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
   //
   void createTexture(const GLubyte *buffer, GLsizei width, GLsizei height, GLenum format,
     const GLfloat *amb, GLuint tex)
   {
-    // ƒeƒNƒXƒ`ƒƒƒIƒuƒWƒFƒNƒg‚ÉƒeƒNƒXƒ`ƒƒ‚ğŠ„‚è“–‚Ä‚é
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å‰²ã‚Šå½“ã¦ã‚‹
     glBindTexture(GL_TEXTURE_2D, tex);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, format, GL_UNSIGNED_BYTE, buffer);
 
-    // ƒeƒNƒXƒ`ƒƒ‚ÍüŒ`•âŠÔ‚·‚é
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ç·šå½¢è£œé–“ã™ã‚‹
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    // ‹«ŠEF‚ğŠg’£‚·‚é
+    // å¢ƒç•Œè‰²ã‚’æ‹¡å¼µã™ã‚‹
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ì‹«ŠEF‚É‘åˆæŠÂ‹«Œõ‚ğİ’è‚·‚é
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¢ƒç•Œè‰²ã«å¤§åŸŸç’°å¢ƒå…‰ã‚’è¨­å®šã™ã‚‹
     glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, amb);
   }
 
 #if USEMAP
   //
-  // •úËÆ“xƒ}ƒbƒv‚Ì“Ç‚İ‚İ
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿
   //
   bool loadMap(const char *iname, const char *ename, GLuint imap, GLuint emap)
   {
-    // I—¹ƒXƒe[ƒ^ƒX
+    // çµ‚äº†ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
     bool status(true);
 
-    // “Ç‚İ‚ñ‚¾‰æ‘œ‚Ì•‚Æ‚‚³, ƒtƒH[ƒ}ƒbƒg
+    // èª­ã¿è¾¼ã‚“ã ç”»åƒã®å¹…ã¨é«˜ã•, ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
     GLsizei width, height;
     GLenum format;
 
-    // •úËÆ“xƒ}ƒbƒv‚Ì“Ç‚İ‚İ
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿
     GLubyte const *const itexture(ggLoadTga(iname, &width, &height, &format));
 
-    // ‰æ‘œ‚ª“Ç‚İ‚ß‚È‚¯‚ê‚ÎI—¹
+    // ç”»åƒãŒèª­ã¿è¾¼ã‚ãªã‘ã‚Œã°çµ‚äº†
     if (!itexture) status = false;
 
-    // “Ç‚İ‚ñ‚¾‰æ‘œ‚Ì¶ã‹÷‚Ì‰æ‘f‚ÌF‚ğ‘åˆæŠÂ‹«Œõ‚Æ‚·‚é
+    // èª­ã¿è¾¼ã‚“ã ç”»åƒã®å·¦ä¸Šéš…ã®ç”»ç´ ã®è‰²ã‚’å¤§åŸŸç’°å¢ƒå…‰ã¨ã™ã‚‹
     const GLfloat iamb[] = { itexture[2] / 255.0f, itexture[1] / 255.0f, itexture[0] / 255.0f };
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
     createTexture(itexture, width, height, format, iamb, imap);
 
-    // “Ç‚İ‚ñ‚¾ƒf[ƒ^‚Í‚à‚¤g‚í‚È‚¢‚Ì‚Åƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
+    // èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã¯ã‚‚ã†ä½¿ã‚ãªã„ã®ã§ãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
     delete[] itexture;
 
-    // •úËÆ“xƒ}ƒbƒv‚Ì“Ç‚İ‚İ
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®èª­ã¿è¾¼ã¿
     GLubyte const *const etexture(ggLoadTga(ename, &width, &height, &format));
 
-    // ‰æ‘œ‚ª“Ç‚İ‚ß‚È‚¯‚ê‚ÎI—¹
+    // ç”»åƒãŒèª­ã¿è¾¼ã‚ãªã‘ã‚Œã°çµ‚äº†
     if (!etexture) status = false;
 
-    // “Ç‚İ‚ñ‚¾‰æ‘œ‚Ì¶ã‹÷‚Ì‰æ‘f‚ÌF‚ğ‘åˆæŠÂ‹«Œõ‚Æ‚·‚é
+    // èª­ã¿è¾¼ã‚“ã ç”»åƒã®å·¦ä¸Šéš…ã®ç”»ç´ ã®è‰²ã‚’å¤§åŸŸç’°å¢ƒå…‰ã¨ã™ã‚‹
     const GLfloat eamb[] = { etexture[2] / 255.0f, etexture[1] / 255.0f, etexture[0] / 255.0f };
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
     createTexture(etexture, width, height, format, eamb, emap);
 
-    // “Ç‚İ‚ñ‚¾ƒf[ƒ^‚Í‚à‚¤g‚í‚È‚¢‚Ì‚Åƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
+    // èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã¯ã‚‚ã†ä½¿ã‚ãªã„ã®ã§ãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
     delete[] etexture;
 
-    // ‚·‚×‚Ä“Ç‚İ‚İ¬Œ÷
+    // ã™ã¹ã¦èª­ã¿è¾¼ã¿æˆåŠŸ
     return status;
   }
 #else
   //
-  // ˆê—l—””­¶ (Xorshift –@)
+  // ä¸€æ§˜ä¹±æ•°ç™ºç”Ÿ (Xorshift æ³•)
   //
   GLfloat xor128()
   {
@@ -303,7 +303,7 @@ namespace
     static unsigned int w(88675123);
     const unsigned int t(x ^ x << 11);
 
-    // ƒf[ƒ^‚Ì“ü‚ê‘Ö‚¦
+    // ãƒ‡ãƒ¼ã‚¿ã®å…¥ã‚Œæ›¿ãˆ
     x = y;
     y = z;
     z = w;
@@ -313,11 +313,11 @@ namespace
   }
 
   //
-  // ƒTƒ“ƒvƒ‰[‚Ìì¬
+  // ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã®ä½œæˆ
   //
   void createSampler(unsigned int samples, GLfloat(*sample)[3], GLfloat n)
   {
-    // e © 1 / (n + 1)
+    // e â† 1 / (n + 1)
     const GLfloat e(1.0f / (n + 1.0f));
 
     for (unsigned int i = 0; i < samples; ++i)
@@ -335,26 +335,26 @@ namespace
   }
 
   //
-  // ƒTƒ“ƒvƒ‰[‚Ì‰ñ“]
+  // ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã®å›è»¢
   //
   void rotateSampler(unsigned int samples, const GLfloat (*sample)[3],
     const GLfloat x, const GLfloat y, const GLfloat z, GLfloat (*result)[3])
   {
-    // a © x^2 + z^2;
+    // a â† x^2 + z^2;
     const GLfloat a(x * x + z * z);
 
-    // ‰ñ“]‚·‚é•K—v‚ª‚ ‚é‚Æ‚«
+    // å›è»¢ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã¨ã
     if (a > 0)
     {
-      // l © length(x, z);
+      // l â† length(x, z);
       const GLfloat l(sqrt(a));
 
-      // m © [(x, y, z) x (0, 1, 0), (x, y, z), (x, y, z) x (0, 1, 0) x (x, y, z)]
+      // m â† [(x, y, z) x (0, 1, 0), (x, y, z), (x, y, z) x (0, 1, 0) x (x, y, z)]
       const GLfloat m00(-z / l), m10(0.0f), m20(x / l);
       const GLfloat m01(x), m11(y), m21(z);
       const GLfloat m02(-m20 * y), m12(l), m22(m00 * y);
 
-      // ‰ñ“]‚µ‚ÄƒRƒs[
+      // å›è»¢ã—ã¦ã‚³ãƒ”ãƒ¼
       for (unsigned int i = 0; i < samples; ++i)
       {
         result[i][0] = m00 * sample[i][0] + m01 * sample[i][1] + m02 * sample[i][2];
@@ -365,7 +365,7 @@ namespace
       return;
     }
 
-    // ‰ñ“]‚·‚é•K—v‚ª‚È‚¯‚ê‚Î‚»‚Ì‚Ü‚ÜƒRƒs[
+    // å›è»¢ã™ã‚‹å¿…è¦ãŒãªã‘ã‚Œã°ãã®ã¾ã¾ã‚³ãƒ”ãƒ¼
     for (unsigned int i = 0; i < samples; ++i)
     {
       result[i][0] = sample[i][0];
@@ -375,26 +375,26 @@ namespace
   }
 
   //
-  // •½ŠŠ‰»
+  // å¹³æ»‘åŒ–
   //
   void smooth(const GLubyte *src, GLsizei width, GLsizei height, GLenum format,
     GLsizei xc, GLsizei yc, GLsizei xr, GLsizei yr, unsigned int samples,
     GLubyte *dst, GLsizei size, const GLfloat *amb, GLfloat shi)
   {
-    // ƒTƒ“ƒvƒ‰[
+    // ã‚µãƒ³ãƒ—ãƒ©ãƒ¼
     GLfloat (*const sampler)[3](new GLfloat[samples][3]);
     createSampler(samples, sampler, shi);
 
-    // ‰ñ“]‚µ‚½ƒTƒ“ƒvƒ‰[‚Ì•Û‘¶æ
+    // å›è»¢ã—ãŸã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã®ä¿å­˜å…ˆ
     GLfloat (*const rsampler)[3](new GLfloat[samples][3]);
 
-    // ƒ`ƒƒƒ“ƒlƒ‹”
+    // ãƒãƒ£ãƒ³ãƒãƒ«æ•°
     const int channels(format == GL_BGRA ? 4 : 3);
 
-    // ‘åˆæŠÂ‹«Œõ‹­“x
+    // å¤§åŸŸç’°å¢ƒå…‰å¼·åº¦
     const GLfloat ramb(amb[0] * 255.0f), gamb(amb[1] * 255.0f), bamb(amb[2] * 255.0f);
 
-    // •úËÆ“xƒ}ƒbƒv‚ÌŠe‰æ‘f‚É‚Â‚¢‚Ä
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®å„ç”»ç´ ã«ã¤ã„ã¦
     for (int yd = 0; yd < size; ++yd)
     {
       std::cout << "Processing line: " << yd
@@ -403,148 +403,148 @@ namespace
 
       for (int xd = 0; xd < size; ++xd)
       {
-        // ‚±‚Ì‰æ‘f‚Ì•úËÆ“xƒ}ƒbƒv‚Ì”z—ñ dst ‚ÌƒCƒ“ƒfƒbƒNƒX
+        // ã“ã®ç”»ç´ ã®æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®é…åˆ— dst ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
         const int id((yd * size + xd) * 3);
 
-        // ‚±‚Ì‰æ‘f‚Ì•úËÆ“xƒ}ƒbƒvã‚Ì³‹K‰»‚³‚ê‚½À•W’l (-0.5 … u, v … 0.5)
+        // ã“ã®ç”»ç´ ã®æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ä¸Šã®æ­£è¦åŒ–ã•ã‚ŒãŸåº§æ¨™å€¤ (-0.5 â‰¦ u, v â‰¦ 0.5)
         const float u(float(xd) / float(size - 1) - 0.5f);
         const float v(0.5f - float(yd) / float(size - 1));
         const float m(u * u + v * v);
         const float w(0.25f - m);
         const float a(sqrt(m + w * w));
 
-        // •úËÆ“xƒ}ƒbƒv‚ğ•ú•¨–Êƒ}ƒbƒv‚Æ‚µ‚ÄQÆ‚·‚é‚Æ‚«‚Ì‚±‚Ì‰æ‘f‚Ì•ûŒüƒxƒNƒgƒ‹ q
+        // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã‚’æ”¾ç‰©é¢ãƒãƒƒãƒ—ã¨ã—ã¦å‚ç…§ã™ã‚‹ã¨ãã®ã“ã®ç”»ç´ ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ« q
         const float qx(u / a);
         const float qy(w / a);
         const float qz(v / a);
 
-        // ‚±‚Ì‰æ‘f‚ª•úËÆ“xƒ}ƒbƒv‚Ì’PˆÊ‰~ŠO‚É‚ ‚é‚Æ‚«
+        // ã“ã®ç”»ç´ ãŒæ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®å˜ä½å††å¤–ã«ã‚ã‚‹ã¨ã
         if (qy <= 0.0f)
         {
-          // ‘åˆæŠÂ‹«Œõ‚ğİ’è‚·‚é
+          // å¤§åŸŸç’°å¢ƒå…‰ã‚’è¨­å®šã™ã‚‹
           dst[id + 0] = GLubyte(ramb);
           dst[id + 1] = GLubyte(gamb);
           dst[id + 2] = GLubyte(bamb);
           continue;
         }
 
-        // ƒTƒ“ƒvƒ‰[‚ğ‚±‚ÌƒxƒNƒgƒ‹‚Ì•ûŒü‚ÉŒü‚¯‚é
+        // ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ã‚’ã“ã®ãƒ™ã‚¯ãƒˆãƒ«ã®æ–¹å‘ã«å‘ã‘ã‚‹
         rotateSampler(samples, sampler, qx, qy, qz, rsampler);
 
-        // ‚±‚ÌƒxƒNƒgƒ‹‚Ì•ûŒü‚ğ“V’¸‚Æ‚·‚é”¼“V‹…‚©‚ç‚Ì•úËÆ“x‚Ì‘˜a
+        // ã“ã®ãƒ™ã‚¯ãƒˆãƒ«ã®æ–¹å‘ã‚’å¤©é ‚ã¨ã™ã‚‹åŠå¤©çƒã‹ã‚‰ã®æ”¾å°„ç…§åº¦ã®ç·å’Œ
         float rsum(0.0f), gsum(0.0f), bsum(0.0f);
 
         for (unsigned int i = 0; i < samples; ++i)
         {
-          // “V‹ó‚ÉŒü‚©‚¤ƒxƒNƒgƒ‹
+          // å¤©ç©ºã«å‘ã‹ã†ãƒ™ã‚¯ãƒˆãƒ«
           const GLfloat &px(rsampler[i][0]);
           const GLfloat &py(rsampler[i][1]);
           const GLfloat &pz(rsampler[i][2]);
 
-          // ‚±‚ÌƒxƒNƒgƒ‹ p ‚ª“V‹ó‰æ‘œ‚Ì—Ìˆæ‚ÌŠO (— ‘¤) ‚ğw‚µ‚Ä‚¢‚é‚Æ‚«
+          // ã“ã®ãƒ™ã‚¯ãƒˆãƒ« p ãŒå¤©ç©ºç”»åƒã®é ˜åŸŸã®å¤– (è£å´) ã‚’æŒ‡ã—ã¦ã„ã‚‹ã¨ã
           if (py <= 0.0f)
           {
-            // ‘åˆæŠÂ‹«Œõ‚ğ‰ÁZ‚·‚é
+            // å¤§åŸŸç’°å¢ƒå…‰ã‚’åŠ ç®—ã™ã‚‹
             rsum += ramb;
             gsum += gamb;
             bsum += bamb;
             continue;
           }
 
-          // ‚±‚ÌƒxƒNƒgƒ‹‚Ì xz •½–Êã‚Ì’·‚³‚Ì 2 æ
+          // ã“ã®ãƒ™ã‚¯ãƒˆãƒ«ã® xz å¹³é¢ä¸Šã®é•·ã•ã® 2 ä¹—
           const GLfloat l(1.0f - py * py);
 
-          // ‚±‚ÌƒxƒNƒgƒ‹‚Ì xz •½–Êã‚Ì’·‚³‚É‘Î‚·‚é“V’¸Šp‚©‚ç‹‚ß‚½“V‹ó‰æ‘œ‚Ì’†S‚©‚ç‚Ì³‹K‰»‚³‚ê‚½‹——£‚Ì”ä
+          // ã“ã®ãƒ™ã‚¯ãƒˆãƒ«ã® xz å¹³é¢ä¸Šã®é•·ã•ã«å¯¾ã™ã‚‹å¤©é ‚è§’ã‹ã‚‰æ±‚ã‚ãŸå¤©ç©ºç”»åƒã®ä¸­å¿ƒã‹ã‚‰ã®æ­£è¦åŒ–ã•ã‚ŒãŸè·é›¢ã®æ¯”
           const GLfloat r(l > 0.0f ? acos(py) * 2.0f / (float(M_PI) * sqrt(l)) : 0.0f);
 
-          // ‚±‚ÌƒxƒNƒgƒ‹‚ÌŒü‚¢‚Ä‚¢‚é•ûŒü‚Ì“V‹ó‰æ‘œ‚É‚¨‚¯‚é³‹K‰»‚³‚ê‚½À•W’l (-1 … u, v … 1)
+          // ã“ã®ãƒ™ã‚¯ãƒˆãƒ«ã®å‘ã„ã¦ã„ã‚‹æ–¹å‘ã®å¤©ç©ºç”»åƒã«ãŠã‘ã‚‹æ­£è¦åŒ–ã•ã‚ŒãŸåº§æ¨™å€¤ (-1 â‰¦ u, v â‰¦ 1)
           const GLfloat u(px * r);
           const GLfloat v(pz * r);
 
-          // ‚±‚Ì‰æ‘f‚Ì“V‹ó‰æ‘œã‚Ì‰æ‘fˆÊ’u
+          // ã“ã®ç”»ç´ ã®å¤©ç©ºç”»åƒä¸Šã®ç”»ç´ ä½ç½®
           const int xs(int(round(float(xr) * u)) - xc);
           const int ys(yc - int(round(float(yr) * v)));
 
-          // ‚±‚Ì‰æ‘f‚Ì“V‹ó‰æ‘œ‚Ì”z—ñ src ‚ÌƒCƒ“ƒfƒbƒNƒX
+          // ã“ã®ç”»ç´ ã®å¤©ç©ºç”»åƒã®é…åˆ— src ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
           const int is((ys * width + xs) * channels);
 
-          // “V‹ó‰æ‘œ src ‚Ì‰æ‘f’l‚ğ•úËÆ“xƒ}ƒbƒv dst ‚Ì‰æ‘f‚É‰ÁZ‚·‚é
+          // å¤©ç©ºç”»åƒ src ã®ç”»ç´ å€¤ã‚’æ”¾å°„ç…§åº¦ãƒãƒƒãƒ— dst ã®ç”»ç´ ã«åŠ ç®—ã™ã‚‹
           rsum += float(src[is + 2]);
           gsum += float(src[is + 1]);
           bsum += float(src[is + 0]);
         }
 
-        // •úËÆ“xƒ}ƒbƒv‚Ì‰æ‘f’l‚Ì•½‹Ï‚ğ‹‚ß‚é
+        // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ç”»ç´ å€¤ã®å¹³å‡ã‚’æ±‚ã‚ã‚‹
         dst[id + 0] = GLubyte(round(rsum / float(samples)));
         dst[id + 1] = GLubyte(round(gsum / float(samples)));
         dst[id + 2] = GLubyte(round(bsum / float(samples)));
       }
     }
 
-    // ƒTƒ“ƒvƒ‰‚Ég‚Á‚½ƒƒ‚ƒŠ‚ğŠJ•ú‚·‚é
+    // ã‚µãƒ³ãƒ—ãƒ©ã«ä½¿ã£ãŸãƒ¡ãƒ¢ãƒªã‚’é–‹æ”¾ã™ã‚‹
     delete[] sampler;
     delete[] rsampler;
   }
 
   //
-  // •úËÆ“xƒ}ƒbƒv‚Ìì¬
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ä½œæˆ
   //
   bool createMap(const char *name, GLsizei diameter,
     GLuint imap, GLsizei isize, unsigned int isamples,
     GLuint emap, GLsizei esize, unsigned int esamples,
     const GLfloat *amb, GLfloat shi)
   {
-    // ì¬‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ì”
+    // ä½œæˆã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ•°
     static int count(0);
 
-    // “Ç‚İ‚ñ‚¾‰æ‘œ‚Ì•‚Æ‚‚³, ƒtƒH[ƒ}ƒbƒg
+    // èª­ã¿è¾¼ã‚“ã ç”»åƒã®å¹…ã¨é«˜ã•, ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
     GLsizei width, height;
     GLenum format;
 
-    // “V‹ó‰æ‘œƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İ
+    // å¤©ç©ºç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿
     GLubyte const *const texture(ggLoadTga(name, &width, &height, &format));
 
-    // ‰æ‘œ‚ª“Ç‚İ‚ß‚È‚¯‚ê‚ÎI—¹
+    // ç”»åƒãŒèª­ã¿è¾¼ã‚ãªã‘ã‚Œã°çµ‚äº†
     if (!texture) return false;
 
-    // ‚±‚Ì‰æ‘œ‚Ì’†SˆÊ’u
+    // ã“ã®ç”»åƒã®ä¸­å¿ƒä½ç½®
     const GLsizei cx(width / 2), cy(height / 2);
 
-    // diameter, width, height ‚ÌÅ¬’l‚Ì 1 / 2 ‚ğ radius ‚É‚·‚é
+    // diameter, width, height ã®æœ€å°å€¤ã® 1 / 2 ã‚’ radius ã«ã™ã‚‹
     const GLsizei radius(std::min(diameter, std::min(width, height)) / 2);
 
-    // •½ŠŠ‚µ‚½•úËÆ“xƒ}ƒbƒv‚Ìˆê•Û‘¶æ
+    // å¹³æ»‘ã—ãŸæ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ä¸€æ™‚ä¿å­˜å…ˆ
     std::vector<GLubyte> itemp(isize * isize * 3);
 
-    // •úËÆ“xƒ}ƒbƒv—p‚É•½ŠŠ‚·‚é
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ç”¨ã«å¹³æ»‘ã™ã‚‹
     smooth(texture, width, height, format, cx, cy, radius, radius, isamples, &itemp[0], isize, amb, 1.0f);
 
-    // •úËÆ“xƒ}ƒbƒv‚ÌƒeƒNƒXƒ`ƒƒ‚ğì¬‚·‚é
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä½œæˆã™ã‚‹
     createTexture(&itemp[0], isize, isize, GL_RGB, amb, imap);
 
-    // ì¬‚µ‚½ƒeƒNƒXƒ`ƒƒ‚ğ•Û‘¶‚·‚é
+    // ä½œæˆã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¿å­˜ã™ã‚‹
     std::stringstream imapname;
     imapname << "irr" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
     ggSaveTga(isize, isize, 3, &itemp[0], imapname.str().c_str());
 
-    // •½ŠŠ‚µ‚½ŠÂ‹«ƒ}ƒbƒv‚Ìˆê•Û‘¶æ
+    // å¹³æ»‘ã—ãŸç’°å¢ƒãƒãƒƒãƒ—ã®ä¸€æ™‚ä¿å­˜å…ˆ
     std::vector<GLubyte> etemp(esize * esize * 3);
 
-    // ŠÂ‹«ƒ}ƒbƒv—p‚É•½ŠŠ‚·‚é
+    // ç’°å¢ƒãƒãƒƒãƒ—ç”¨ã«å¹³æ»‘ã™ã‚‹
     smooth(texture, width, height, format, cx, cy, radius, radius, esamples, &etemp[0], esize, amb, shi);
 
-    // ŠÂ‹«ƒ}ƒbƒv‚ÌƒeƒNƒXƒ`ƒƒ‚ğì¬‚·‚é
+    // ç’°å¢ƒãƒãƒƒãƒ—ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä½œæˆã™ã‚‹
     createTexture(&etemp[0], esize, esize, GL_RGB, amb, emap);
 
-    // ì¬‚µ‚½ƒeƒNƒXƒ`ƒƒ‚ğ•Û‘¶‚·‚é
+    // ä½œæˆã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¿å­˜ã™ã‚‹
     std::stringstream emapname;
     emapname << "env" << std::setfill('0') << std::setw(5) << std::right << count << ".tga";
     ggSaveTga(esize, esize, 3, &etemp[0], emapname.str().c_str());
 
-    // “Ç‚İ‚ñ‚¾ƒf[ƒ^‚Í‚à‚¤g‚í‚È‚¢‚Ì‚Åƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é
+    // èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã¯ã‚‚ã†ä½¿ã‚ãªã„ã®ã§ãƒ¡ãƒ¢ãƒªã‚’è§£æ”¾ã™ã‚‹
     delete[] texture;
 
-    // ì¬‚µ‚½ƒeƒNƒXƒ`ƒƒ‚Ì”‚ğ”‚¦‚é
+    // ä½œæˆã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®æ•°ã‚’æ•°ãˆã‚‹
     ++count;
 
     return true;
@@ -552,11 +552,11 @@ namespace
 #endif
 
   //
-  // •úËÆ“xƒ}ƒbƒv‚Ég‚¤ƒeƒNƒXƒ`ƒƒ‚¤ƒjƒbƒg‚Ìİ’è
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã«ä½¿ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£ã†ãƒ‹ãƒƒãƒˆã®è¨­å®š
   //
   void irradiance()
   {
-    // ƒeƒNƒXƒ`ƒƒÀ•W‚É–@üƒxƒNƒgƒ‹‚ğg‚¤
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã«æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã‚’ä½¿ã†
     glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_NORMAL_MAP);
     glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_NORMAL_MAP);
     glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_NORMAL_MAP);
@@ -564,39 +564,39 @@ namespace
     glEnable(GL_TEXTURE_GEN_T);
     glEnable(GL_TEXTURE_GEN_R);
 
-    // •úËÆ“xƒ}ƒbƒv‚Ì’l‚ğ‚©‚³ã‚°‚·‚é Ce © Cb + Ct
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®å€¤ã‚’ã‹ã•ä¸Šã’ã™ã‚‹ Ce â† Cb + Ct
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD);          // ‰ÁZ
+    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_ADD);          // åŠ ç®—
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_CONSTANT);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Cb © GL_TEXTURE_ENV_COLOR ‚Ì RGB ’l
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Cb â† GL_TEXTURE_ENV_COLOR ã® RGB å€¤
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_TEXTURE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Ct © •úËÆ“xƒ}ƒbƒv‚Ì’l
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Ct â† æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®å€¤
 
-    // ƒeƒNƒXƒ`ƒƒÀ•W‚Ì•ÏŠ·s—ñ‚É•ú•¨–Êƒ}ƒbƒsƒ“ƒO—p‚Ì•ÏŠ·s—ñ‚ğİ’è‚·‚é
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã®å¤‰æ›è¡Œåˆ—ã«æ”¾ç‰©é¢ãƒãƒƒãƒ”ãƒ³ã‚°ç”¨ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
     glMatrixMode(GL_TEXTURE);
     glLoadMatrixf(paraboloid);
   }
 
   //
-  // ŠgU”½ËŒõ‹­“x‚ÌZo‚É‚Â‚©‚¤ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg‚Ìİ’è
+  // æ‹¡æ•£åå°„å…‰å¼·åº¦ã®ç®—å‡ºã«ã¤ã‹ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆã®è¨­å®š
   //
   void diffuse()
   {
-    // •¨‘Ì‚ÌFi’¸“_F‚Ì•âŠÔ’lj‚É‘OƒŒƒCƒ„‚Å‹‚ß‚½“üËŒõ‹­“x‚ğ‚©‚¯‚é Cd © Cv * Ce
+    // ç‰©ä½“ã®è‰²ï¼ˆé ‚ç‚¹è‰²ã®è£œé–“å€¤ï¼‰ã«å‰ãƒ¬ã‚¤ãƒ¤ã§æ±‚ã‚ãŸå…¥å°„å…‰å¼·åº¦ã‚’ã‹ã‘ã‚‹ Cd â† Cv * Ce
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_MODULATE);     // æZ
+    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_MODULATE);     // ä¹—ç®—
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_PRIMARY_COLOR);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Cv © ’¸“_F‚Ì•âŠÔ’l
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Cv â† é ‚ç‚¹è‰²ã®è£œé–“å€¤
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_PREVIOUS);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Ce © ‚©‚³ã‚°‚µ‚½•úËÆ“x (‘OƒŒƒCƒ„)
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Ce â† ã‹ã•ä¸Šã’ã—ãŸæ”¾å°„ç…§åº¦ (å‰ãƒ¬ã‚¤ãƒ¤)
   }
 
   //
-  // ŠÂ‹«ƒ}ƒbƒv‚Ì‰ÁZ‚Ég‚¤ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg‚Ìİ’è
+  // ç’°å¢ƒãƒãƒƒãƒ—ã®åŠ ç®—ã«ä½¿ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆã®è¨­å®š
   //
   void reflection()
   {
-    // ƒeƒNƒXƒ`ƒƒÀ•W‚É”½ËƒxƒNƒgƒ‹‚ğg‚¤
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã«åå°„ãƒ™ã‚¯ãƒˆãƒ«ã‚’ä½¿ã†
     glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP);
     glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP);
     glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_REFLECTION_MAP);
@@ -604,66 +604,66 @@ namespace
     glEnable(GL_TEXTURE_GEN_T);
     glEnable(GL_TEXTURE_GEN_R);
 
-    // ŠÂ‹«ƒ}ƒbƒv‚Ì’l‚Æ‘OƒŒƒCƒ„‚Å‹‚ß‚½ŠgU”½ËŒõ‹­“x‚ğ‹¾–Ê”½ËŒW”‚Å”ä—á”z•ª‚·‚é C © Ct * Cs + Cd * (1 - Cs)
+    // ç’°å¢ƒãƒãƒƒãƒ—ã®å€¤ã¨å‰ãƒ¬ã‚¤ãƒ¤ã§æ±‚ã‚ãŸæ‹¡æ•£åå°„å…‰å¼·åº¦ã‚’é¡é¢åå°„ä¿‚æ•°ã§æ¯”ä¾‹é…åˆ†ã™ã‚‹ C â† Ct * Cs + Cd * (1 - Cs)
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_COMBINE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE);  // •âŠÔ
+    glTexEnvi(GL_TEXTURE_ENV, GL_COMBINE_RGB, GL_INTERPOLATE);  // è£œé–“
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE0_RGB, GL_TEXTURE);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Ct © ŠÂ‹«ƒ}ƒbƒv‚Ì’l
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND0_RGB, GL_SRC_COLOR);   // Ct â† ç’°å¢ƒãƒãƒƒãƒ—ã®å€¤
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE1_RGB, GL_PREVIOUS);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Cd © ŠgU”½ËŒõ‹­“x (‘OƒŒƒCƒ„)
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND1_RGB, GL_SRC_COLOR);   // Cd â† æ‹¡æ•£åå°„å…‰å¼·åº¦ (å‰ãƒ¬ã‚¤ãƒ¤)
     glTexEnvi(GL_TEXTURE_ENV, GL_SOURCE2_RGB, GL_CONSTANT);
-    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_COLOR);   // Cs © ‹¾–Ê”½ËŒW”
+    glTexEnvi(GL_TEXTURE_ENV, GL_OPERAND2_RGB, GL_SRC_COLOR);   // Cs â† é¡é¢åå°„ä¿‚æ•°
 
-    // ƒeƒNƒXƒ`ƒƒÀ•W‚Ì•ÏŠ·s—ñ‚É•ú•¨–Êƒ}ƒbƒsƒ“ƒO—p‚Ì•ÏŠ·s—ñ‚ğİ’è‚·‚é
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã®å¤‰æ›è¡Œåˆ—ã«æ”¾ç‰©é¢ãƒãƒƒãƒ”ãƒ³ã‚°ç”¨ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®šã™ã‚‹
     glMatrixMode(GL_TEXTURE);
     glLoadMatrixf(paraboloid);
   }
 
   //
-  // ƒvƒƒOƒ‰ƒ€I—¹‚Ìˆ—
+  // ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†æ™‚ã®å‡¦ç†
   //
   void cleanup()
   {
-    // GLFW ‚ÌI—¹ˆ—
+    // GLFW ã®çµ‚äº†å‡¦ç†
     glfwTerminate();
   }
 }
 
 //
-// ƒƒCƒ“ƒvƒƒOƒ‰ƒ€
+// ãƒ¡ã‚¤ãƒ³ãƒ—ãƒ­ã‚°ãƒ©ãƒ 
 //
 int main()
 {
-  // GLFW ‚ğ‰Šú‰»‚·‚é
+  // GLFW ã‚’åˆæœŸåŒ–ã™ã‚‹
   if (glfwInit() == GL_FALSE)
   {
-    // ‰Šú‰»‚É¸”s‚µ‚½
+    // åˆæœŸåŒ–ã«å¤±æ•—ã—ãŸ
     std::cerr << "Can't initialize GLFW" << std::endl;
     return 1;
   }
 
-  // ƒvƒƒOƒ‰ƒ€I—¹‚Ìˆ—‚ğ“o˜^‚·‚é
+  // ãƒ—ãƒ­ã‚°ãƒ©ãƒ çµ‚äº†æ™‚ã®å‡¦ç†ã‚’ç™»éŒ²ã™ã‚‹
   atexit(cleanup);
 
-  // ƒEƒBƒ“ƒhƒE‚ğì¬‚·‚é
+  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆã™ã‚‹
   Window window("Irradiance Mapping", 960, 540);
 
-  // OpenGL ‚Ì‰Šúİ’è
+  // OpenGL ã®åˆæœŸè¨­å®š
   glClearColor(0.3f, 0.5f, 0.8f, 0.0f);
   glEnable(GL_NORMALIZE);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_CULL_FACE);
   glEnable(GL_MULTISAMPLE);
 
-  // ‰A‰e•t‚¯‚ğ–³Œø‚É‚·‚é
+  // é™°å½±ä»˜ã‘ã‚’ç„¡åŠ¹ã«ã™ã‚‹
   glDisable(GL_LIGHTING);
 
-  // ƒeƒNƒXƒ`ƒƒ
+  // ãƒ†ã‚¯ã‚¹ãƒãƒ£
   GLuint imap[mapcount], emap[mapcount];
   glGenTextures(mapcount, imap);
   glGenTextures(mapcount, emap);
 
-  // ƒeƒNƒXƒ`ƒƒ‚Ì“Ç‚İ‚İ
+  // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®èª­ã¿è¾¼ã¿
   for (size_t i = 0; i < mapcount; ++i)
   {
 #if USEMAP
@@ -673,76 +673,76 @@ int main()
 #endif
   }
 
-  // •úËÆ“xƒ}ƒbƒv‚Ì‚©‚³ã‚°‚Ég‚¤ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg‚Ìİ’è
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ã‹ã•ä¸Šã’ã«ä½¿ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆã®è¨­å®š
   glActiveTexture(GL_TEXTURE0);
   glEnable(GL_TEXTURE_2D);
   irradiance();
 
-  // •úËÆ“xƒ}ƒbƒv‚Ì‚©‚³ã‚°‚Ég‚¤ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg‚Ìİ’è
+  // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ã‹ã•ä¸Šã’ã«ä½¿ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆã®è¨­å®š
   glActiveTexture(GL_TEXTURE1);
   glEnable(GL_TEXTURE_2D);
   diffuse();
 
-  // ŠÂ‹«ƒ}ƒbƒv‚Ì‰ÁZ‚Ég‚¤ƒeƒNƒXƒ`ƒƒƒ†ƒjƒbƒg‚Ìİ’è
+  // ç’°å¢ƒãƒãƒƒãƒ—ã®åŠ ç®—ã«ä½¿ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¦ãƒ‹ãƒƒãƒˆã®è¨­å®š
   glActiveTexture(GL_TEXTURE2);
   glEnable(GL_TEXTURE_2D);
   reflection();
 
-  // Ş¿ƒf[ƒ^
+  // æè³ªãƒ‡ãƒ¼ã‚¿
   GLuint ng;
   GLuint (*group)[2];
   GLfloat (*amb)[4], (*diff)[4], (*spec)[4], *shi;
 
-  // Œ`óƒf[ƒ^
+  // å½¢çŠ¶ãƒ‡ãƒ¼ã‚¿
   GLuint nv;
   GLfloat (*pos)[3], (*norm)[3];
 
-  // Œ`óƒf[ƒ^‚Ì“Ç‚İ‚İ
+  // å½¢çŠ¶ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
   ggLoadObj(filename, ng, group, amb, diff, spec, shi, nv, pos, norm, false);
 
-  // ƒEƒBƒ“ƒhƒE‚ªŠJ‚¢‚Ä‚¢‚éŠÔŒJ‚è•Ô‚·
+  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒé–‹ã„ã¦ã„ã‚‹é–“ç¹°ã‚Šè¿”ã™
   while (window.shouldClose() == GL_FALSE)
   {
-    // ƒEƒBƒ“ƒhƒE‚ğÁ‹‚·‚é
+    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’æ¶ˆå»ã™ã‚‹
     window.clear();
 
-    // ƒeƒNƒXƒ`ƒƒ‚Ì‘I‘ğ
+    // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é¸æŠ
     const int select(window.getSelection() % mapcount);
 
-    // –¾‚é‚³
+    // æ˜ã‚‹ã•
     GLfloat brightness[4];
     window.getBrightness(brightness);
 
-    // •úËÆ“xƒ}ƒbƒv‚Ì‚©‚³ã‚°
+    // æ”¾å°„ç…§åº¦ãƒãƒƒãƒ—ã®ã‹ã•ä¸Šã’
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, imap[select]);
     glTexEnvfv(GL_TEXTURE_ENV, GL_TEXTURE_ENV_COLOR, brightness);
 
-    // ŠgU”½ËŒõ‹­“x‚ÌZo
+    // æ‹¡æ•£åå°„å…‰å¼·åº¦ã®ç®—å‡º
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, imap[select]);
 
-    // ŠÂ‹«ƒ}ƒbƒsƒ“ƒO
+    // ç’°å¢ƒãƒãƒƒãƒ”ãƒ³ã‚°
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, emap[select]);
 
-    // ƒ‚ƒfƒ‹ƒrƒ…[•ÏŠ·s—ñ‚Ìİ’è
+    // ãƒ¢ãƒ‡ãƒ«ãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—ã®è¨­å®š
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    // ‹“_‚ÌˆÚ“®
+    // è¦–ç‚¹ã®ç§»å‹•
     glTranslatef(window.getPosition()[0], window.getPosition()[1], window.getPosition()[2]);
 
-    // ƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—‚É‚æ‚é‰ñ“]
+    // ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†ã«ã‚ˆã‚‹å›è»¢
     glMultMatrixf(window.getTb());
 
-    // ƒV[ƒ“‚Ì•`‰æ
+    // ã‚·ãƒ¼ãƒ³ã®æç”»
     scene(ng, group, diff, spec, nv, pos, norm);
 
-    // °‚Ì•`‰æ
+    // åºŠã®æç”»
     floor(5, -1.0f);
 
-    // ƒJƒ‰[ƒoƒbƒtƒ@‚ğ“ü‚ê‘Ö‚¦‚ÄƒCƒxƒ“ƒg‚ğæ‚èo‚·
+    // ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡ã‚’å…¥ã‚Œæ›¿ãˆã¦ã‚¤ãƒ™ãƒ³ãƒˆã‚’å–ã‚Šå‡ºã™
     window.swapBuffers();
   }
 }

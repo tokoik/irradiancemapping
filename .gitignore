@@ -1,38 +1,44 @@
-#
-# for Linux
-#
-*.o
-core
-a.out
-irradiancemapping
-#
-# for Mac
-#
-.DS_Store
-*.xcodeproj/*
-!project.pbxproj
-*.xcuserdatad/
+# Build directory
 build/
-DerivedData/
-#
-# for Windows
-#
-Thumbs.db
-*.com
-*.exe
-*.ncb
+bin/
+lib/
+libs/
+
+# Visual Studio
+.vs/
+*.user
 *.suo
-*.vcproj.*.*.user
+*.sln.docstates
+*.db
+*.opendb
+*.VC.db
 *.sdf
-*.opensdf
 Debug/
 Release/
+x64/
+Win32/
 ipch/
-*.dep
-#
-# anothre stuff
-#
-*~
-*.bak
-env0*.tga
-irr0*.tga
+*.ilk
+*.pdb
+*.idb
+*.tlog
+
+# Xcode
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+DerivedData/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Preserved assets
+!*.obj
+!*.mtl
+!*.tga
+!*.png
+!*.jpg
+!*.bmp
+!*.dat
+!*.csv

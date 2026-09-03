@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <cstdlib>
 #include <iostream>
@@ -15,86 +15,86 @@
 using namespace gg;
 
 //
-// ƒEƒBƒ“ƒhƒEŠÖ˜A‚Ìˆ—
+// ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦é–¢é€£ã®å‡¦ç†
 //
 class Window
 {
-  // ƒEƒBƒ“ƒhƒE‚Ì¯•Êq
+  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è­˜åˆ¥å­
   GLFWwindow *const window;
 
-  // ƒgƒ‰ƒbƒNƒ{[ƒ‹ˆ—
+  // ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«å‡¦ç†
   GgTrackball tb;
 
-  // ‰ñ“]’†S‚É‘Î‚·‚éƒJƒƒ‰‚ÌˆÊ’u
+  // å›è»¢ä¸­å¿ƒã«å¯¾ã™ã‚‹ã‚«ãƒ¡ãƒ©ã®ä½ç½®
   GLfloat position[3];
 
-  // –¾‚é‚³
+  // æ˜ã‚‹ã•
   int blightness;
 
-  // ‘I‘ğ‚µ‚½ƒeƒNƒXƒ`ƒƒ”Ô†
+  // é¸æŠã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ç•ªå·
   int selection;
 
 public:
 
-  // ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+  // ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
   Window(const char *title = "Game Graphics", int width = 640, int height = 480);
 
-  // ƒfƒXƒgƒ‰ƒNƒ^
+  // ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
   virtual ~Window();
 
-  // ƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚é‚×‚«‚©‚ğ”»’è‚·‚é
+  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ã¹ãã‹ã‚’åˆ¤å®šã™ã‚‹
   int shouldClose() const
   {
     return glfwWindowShouldClose(window) | glfwGetKey(window, GLFW_KEY_ESCAPE);
   }
 
-  // ‰æ–ÊƒNƒŠƒA
+  // ç”»é¢ã‚¯ãƒªã‚¢
   void clear() const
   {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   }
 
-  // ƒJƒ‰[ƒoƒbƒtƒ@‚ğ“ü‚ê‘Ö‚¦‚ÄƒCƒxƒ“ƒg‚ğæ‚èo‚·
+  // ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ•ã‚¡ã‚’å…¥ã‚Œæ›¿ãˆã¦ã‚¤ãƒ™ãƒ³ãƒˆã‚’å–ã‚Šå‡ºã™
   void swapBuffers();
 
-  // ƒL[ƒ{[ƒh‚ğƒ^ƒCƒv‚µ‚½‚Ìˆ—
+  // ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‚’ã‚¿ã‚¤ãƒ—ã—ãŸæ™‚ã®å‡¦ç†
   static void keyboard(GLFWwindow *window, int key, int scancode, int action, int mods);
 
-  // ƒ}ƒEƒXƒ{ƒ^ƒ“‚ğ‘€ì‚µ‚½‚Æ‚«‚Ìˆ—
+  // ãƒã‚¦ã‚¹ãƒœã‚¿ãƒ³ã‚’æ“ä½œã—ãŸã¨ãã®å‡¦ç†
   static void mouse(GLFWwindow *window, int button, int action, int mods);
 
-  // ƒ}ƒEƒXƒzƒC[ƒ‹‘€ì‚Ìˆ—
+  // ãƒã‚¦ã‚¹ãƒ›ã‚¤ãƒ¼ãƒ«æ“ä½œæ™‚ã®å‡¦ç†
   static void wheel(GLFWwindow *window, double x, double y);
 
-  // ƒEƒBƒ“ƒhƒE‚ÌƒTƒCƒY•ÏX‚Ìˆ—
+  // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚µã‚¤ã‚ºå¤‰æ›´æ™‚ã®å‡¦ç†
   static void resize(GLFWwindow *window, int width, int height);
 
-  // ƒgƒ‰ƒbƒNƒ{[ƒ‹‚É‚æ‚é‰ñ“]‚ğæ‚èo‚·
+  // ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«ã«ã‚ˆã‚‹å›è»¢ã‚’å–ã‚Šå‡ºã™
   const GLfloat *getTb() const
   {
     return tb.get();
   }
 
-  // ƒgƒ‰ƒbƒNƒ{[ƒ‹‚É‚æ‚é‰ñ“]‚ğæ‚èo‚·
+  // ãƒˆãƒ©ãƒƒã‚¯ãƒœãƒ¼ãƒ«ã«ã‚ˆã‚‹å›è»¢ã‚’å–ã‚Šå‡ºã™
   const GLfloat *getTbTransposed() const
   {
     return tb.getMatrix().transpose().get();
   }
 
-  // ‰ñ“]’†S‚É‘Î‚·‚éƒJƒƒ‰‚ÌˆÊ’u‚ğæ‚èo‚·
+  // å›è»¢ä¸­å¿ƒã«å¯¾ã™ã‚‹ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã‚’å–ã‚Šå‡ºã™
   const GLfloat *getPosition() const
   {
     return position;
   }
 
-  // –¾‚é‚³‚ğæ‚èo‚·
+  // æ˜ã‚‹ã•ã‚’å–ã‚Šå‡ºã™
   void getBrightness(GLfloat *brightness)
   {
     brightness[0] = brightness[1] = brightness[2] = this->blightness * 0.1f;
     brightness[3] = 1.0f;
   }
 
-  // ‘I‘ğ‚µ‚½ƒeƒNƒXƒ`ƒƒ”Ô†‚ğæ‚èo‚·
+  // é¸æŠã—ãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ç•ªå·ã‚’å–ã‚Šå‡ºã™
   int getSelection() const
   {
     return selection;
