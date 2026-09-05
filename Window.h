@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <cstdlib>
 #include <iostream>
@@ -9,6 +9,7 @@
 #  define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #  include <OpenGL/gl.h>
 #  include <OpenGL/glext.h>
+#  include <OpenGL/glu.h>
 #endif
 #define GLFW_INCLUDE_GLU
 #include "gg.h"
