@@ -20,12 +20,13 @@
 本リポジトリには、放射照度マッピング手法の段階的な実装とアルゴリズム改良、および現代のビルド環境への対応履歴を記録した 5 つのブランチが存在します。
 
 ```mermaid
+%%{init: { 'gitGraph': {'mainBranchName': 'master'}} }%%
 gitGraph
    commit id: "original lighting"
    branch original
    checkout original
    commit id: "プラットフォーム互換性修正"
-   checkout main
+   checkout master
    commit id: "irradiance mapping"
    branch mapping
    checkout mapping
@@ -36,7 +37,7 @@ gitGraph
    branch importance
    checkout importance
    commit id: "重要度サンプリング・放物面マップ最適化"
-   checkout main
+   checkout master
    merge importance id: "Merge branch 'importance'"
    commit id: "CMake / VS2022 / 近代化"
 ```
